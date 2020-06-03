@@ -12,6 +12,49 @@ body {
     text-align: center;
 }
 
+/* Header
+--------------------------------------*/
+.bg {
+    display: flex;
+    min-height: 60px;
+    width: 100%;
+    background-color: #000;
+}
+
+header .logo {
+    width: 300px;
+    line-height: 60px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+header .logo a {
+    text-decoration:none;
+    color: #FFF;
+}
+
+.menu {
+    flex: 1;
+}
+
+.menu ul {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    padding: 0;
+}
+
+.menu ul li a {
+    color: #FFF;
+    text-decoration: none;
+    padding: 20px;
+    font-weight: bold;
+}
+
+.menu ul li a:hover {
+    text-decoration: underline;
+}
 
 /* Contact
 --------------------------------------*/
@@ -57,6 +100,7 @@ fieldset {
 .required-field {
     margin-bottom: 10px;
 }
+
 /* Footer
 --------------------------------------*/
 

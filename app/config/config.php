@@ -20,4 +20,7 @@
     define("USUARIO", "devrobson");
     define("SENHA", "robson");
     define("DSN", "mysql:dbname=portfolio_painel_mensagem;host=127.0.0.1:3308");
+
+    // E-mail para notificação
+    define("EMAIL_NOTIFICACAO", "natanaelrobson@gmail.com");
  

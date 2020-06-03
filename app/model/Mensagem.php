@@ -7,11 +7,11 @@
      * Este arquivo de origem está sujeito à Licença ...
      * incluído neste pacote no arquivo LICENSE.txt.
      * Também está disponível na Internet neste URL:
-     * https://www.robsonnatanael.com.br/...
+     * https://opensource.org/licenses/MIT
      * 
      * @author Robson Natanael <natanaelrobson@gmail.com>
      * @copyright 2020 - RN Comunicação & Marketing
-     * @license 
+     * @license MIT
      * 
      * @package Portfólio Painel de Mensagem
      */
@@ -24,6 +24,14 @@
         private $status;
         private $data;
         private $usuario;
+
+        /* public function __construct($id, $assunto, $mensagem, $status, $data) {
+            $this->id = $id;
+            $this->assunto = $assunto;
+            $this->mensagem = $mensagem;
+            $this->status = $status;
+            $this->data = $data;
+        } */
 
         public function setId($id) {
             $this->id = $id;

@@ -7,11 +7,11 @@
      * Este arquivo de origem está sujeito à Licença ...
      * incluído neste pacote no arquivo LICENSE.txt.
      * Também está disponível na Internet neste URL:
-     * https://www.robsonnatanael.com.br/...
+     * https://opensource.org/licenses/MIT
      * 
      * @author Robson Natanael <natanaelrobson@gmail.com>
      * @copyright 2020 - RN Comunicação & Marketing
-     * @license 
+     * @license MIT
      * 
      * @package Portfólio Painel de Mensagem
      */
@@ -35,7 +35,7 @@
             ";
 
             $query = $this->pdo->prepare($sqlGravar);
-
+      
             $query->execute([
                 'id_usuario' => $msg->getUsuario()->getId(),
                 'assunto' => strip_tags($msg->getAssunto()),
@@ -43,22 +43,18 @@
                 'status' => strip_tags($msg->getStatus()),
                 'data' => $msg->getData(),
             ]);
-
-            // OBSERVAÇÃO: Ver lugar adequado para JavaScript
-            echo "<script>alert('Mensagem enviada com sucesso!');</script>";
         }
 
-        public function consultarUsuario(Usuario $usuario) {
-
-            //MELHORIA: buscar apenas id
-            $sqlBusca = "SELECT * FROM usuario WHERE email = :email";
+        public function getIdUser($email) {
+            $sqlBusca = "SELECT id FROM usuario WHERE email = :email";
             $query = $this->pdo->prepare($sqlBusca);
-            $query->execute(['email' => $usuario->getEmail(),]);
+            $query->execute(['email' => $email]);
 
-            $usuario = $query->fetchObject('Usuario');
-
-            return $usuario;
-           
+            //$id = $query->fetch(PDO::FETCH_OBJ);
+            $id = $query->fetch();
+            if ($id) {
+                return $id['id'];
+            }            
         }
 
         public function salvarUsuario($usuario) {
@@ -76,7 +72,14 @@
                 'nome' => $usuario->getNome(),
                 'email' => $usuario->getEmail(),
             ]);
+        }
 
+        public function getLastId() {
+            $sql = "SELECT max(id) as max FROM usuario";
+            $query = $this->pdo->prepare($sql);
+            $query->execute();
+            $id = $query->fetch(PDO::FETCH_OBJ);
+            return $id->max;
         }
     }
     
