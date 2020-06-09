@@ -45,6 +45,8 @@
             $campo[2] = 'Mensagem';
         };
 
+        $validacao = reCAPTCHA();
+
         if (!$validacao) {
             
             $validar = '';    

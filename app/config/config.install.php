@@ -17,10 +17,10 @@
      */
 
     // Conexão ao banco de dados (MySQL)
-    define("USUARIO", "devrobson");
-    define("SENHA", "robson");
-    define("DSN", "mysql:dbname=portfolio_painel_mensagem;host=127.0.0.1:3308");
+    define("USUARIO", "X-X-X");
+    define("SENHA", "X-X-X");
+    define("DSN", "mysql:dbname=X-X-X;host=X-X-X");
 
     // E-mail para notificação
-    define("EMAIL_NOTIFICACAO", "natanaelrobson@gmail.com");
+    define("EMAIL_NOTIFICACAO", "X-X-X");
  

@@ -24,6 +24,18 @@
         return false;
     }
 
+    function reCAPTCHA() {
+        $secretKey = "6Le0tAEVAAAAAJAkxtDRmWCQSeezY_aUAbvR_y29";
+        $responseKey = $_POST['g-recaptcha-response'];
+        $userIP = $_SERVER['REMOTE_ADDR'];
+
+        $url = "https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$responseKey&remoteip=$userIP";
+        $response = file_get_contents($url);
+        $response = json_decode($response);
+
+        return $response->success;
+    }
+
     function sendEmail($content = '') {
         require_once __DIR__ . "/../../libs/PHPMailer/PHPMailerAutoload.php";
         
