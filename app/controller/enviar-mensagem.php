@@ -35,21 +35,21 @@
     if (validar_metodo_post()) {
 
         if (strlen($_POST['nome']) > 0) {
-            $usuario->setNome($_POST['nome']);
+            $usuario->nome = $_POST['nome'];
         } else {
             $validacao = false;
             $campo[0] = 'Nome';
         };
 
         if (strlen($_POST['email']) > 0) {
-            $usuario->setEmail($_POST['email']);
+            $usuario->email = $_POST['email'];
         } else {
             $validacao = false;
             $campo[1] = 'E-mail';
         };
 
         if (strlen($_POST['mensagem']) > 0) {
-            $msg->setMensagem($_POST['mensagem']);
+            $msg->mensagem = $_POST['mensagem'];
         } else {
             $validacao = false;
             $campo[2] = 'Mensagem';
@@ -66,13 +66,13 @@
             echo "<script>alert('Campos obrigratórios! {$validar}');</script>";
 
         } else {
-            $usuario->setFone($_POST['fone']);         
-            $msg->setAssunto($_POST['assunto']);
-            $msg->setStatus("Pendente");
-            $msg->setDateSend(date("Y-m-d"));
+            $usuario->fone          = $_POST['fone'];
+            $msg->assunto           = $_POST['assunto'];
+            $msg->status            = "Pendente";
+            $msg->date_send         = date("Y-m-d");
             // Rever método que set Id Chat e Id Fornecedor
-            $msg->setIdChat(0);
-            $msg->setIdFornecedor(1);
+            $msg->id_chat           = 0;
+            $msg->id_fornecedor     = 1;
             
             $id_usuario = $repositorio->getIdUser($_POST['email']);
             
@@ -81,11 +81,11 @@
                 $id_usuario = $repositorio->getLastId();
             } 
                     
-            $usuario->setId($id_usuario);
-            $msg->setUsuario($usuario);
+            $usuario->id_usuario    = $id_usuario;
+            $msg->usuario           = $usuario;
 
             $repositorio->salvar($msg);
-            sendEmail();
+            //sendEmail();
             echo "<script>alert('Mensagem enviada com sucesso!');</script>"; 
         }
     } 

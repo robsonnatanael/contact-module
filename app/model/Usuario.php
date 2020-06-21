@@ -20,40 +20,14 @@
     
     class Usuario
     {       
-        private $id;
-        private $nome;
-        private $email;
-        private $fone;
-
-        public function setId($id) {
-            $this->id = $id;
+        private static $conn;
+        private $data;
+        
+        public function __set($propriedade, $value) {
+            $this->data[$propriedade] = $value;
         }
 
-        public function getId() {
-            return $this->id;
-        }
-
-        public function setNome($nome) {
-            $this->nome = $nome;
-        }
-
-        public function getNome(){
-            return $this->nome;
-        }
-
-        public function setEmail($email) {
-            $this->email = $email;
-        }
-
-        public function getEmail() {
-            return $this->email;
-        }
-
-        public function setFone($fone) {
-            $this->fone = $fone;
-        }
-
-        public function getFone() {
-            return $this->fone;
+        public function __get($propriedade) {
+            return $this->data[$propriedade];
         }
     }        

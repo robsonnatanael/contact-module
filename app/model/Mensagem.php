@@ -20,86 +20,14 @@
 
     class Mensagem
     {       
-        private $id;
-        private $assunto;
-        private $mensagem;
-        private $status;
-        private $date_send;
-        private $id_chat;
-        private $id_fornecedor;
-        private $usuario;
-
-        public function setId($id) {
-            $this->id = $id;
+        private static $conn;
+        private $data;
+       
+        public function __set($propriedade, $value) {
+            $this->data[$propriedade] = $value;
         }
 
-        public function getId() {
-            return $this->id;
-        }
-
-        public function setAssunto($assunto) {
-            $this->assunto = $assunto;
-        }
-
-        public function getAssunto() {
-            return $this->assunto;
-        }
-
-        public function setMensagem($mensagem) {
-            $this->mensagem = $mensagem;
-        }
-
-        public function getMensagem() {
-            return $this->mensagem;
-        }
-
-        public function setStatus($status)
-        {
-            $this->status = $status;
-        }
-
-        public function getStatus()
-        {
-            return $this->status;
-        }
-
-        public function setDateSend($date_send)
-        {
-            $this->date_send = $date_send;
-        }
-
-        public function getDateSend()
-        {
-            return $this->date_send;
-        }
-
-        public function setIdChat($id_chat)
-        {
-            $this->id_chat = $id_chat;
-        }
-
-        public function getIdChat()
-        {
-            return $this->id_chat;
-        }
-
-        public function setIdFornecedor($id_fornecedor)
-        {
-            $this->id_fornecedor = $id_fornecedor;
-        }
-
-        public function getIdFornecedor()
-        {
-            return $this->id_fornecedor;
-        }
-
-        public function setUsuario(Usuario $usuario) 
-        {
-            $this->usuario = $usuario;
-        }
-
-        public function getUsuario()
-        {
-            return $this->usuario;
+        public function __get($propriedade) {
+            return $this->data[$propriedade];
         }
     }        

@@ -40,13 +40,13 @@
             $query = $this->pdo->prepare($sqlGravar);
       
             $query->execute([
-                'id_usuario'    => $msg->getUsuario()->getId(),
-                'assunto'       => strip_tags($msg->getAssunto()),
-                'mensagem'      => strip_tags($msg->getMensagem()),
-                'status'        => strip_tags($msg->getStatus()),
-                'date_send'     => $msg->getDateSend(),
-                'id_chat'       => $msg->getIdChat(),
-                'id_fornecedor' => $msg->getIdFornecedor(),
+                'id_usuario'    => $msg->usuario->id_usuario,
+                'assunto'       => strip_tags($msg->assunto),
+                'mensagem'      => strip_tags($msg->mensagem),
+                'status'        => strip_tags($msg->status),
+                'date_send'     => $msg->date_send,
+                'id_chat'       => $msg->id_chat,
+                'id_fornecedor' => $msg->id_fornecedor,
             ]);
         }
 
@@ -74,8 +74,8 @@
             $query = $this->pdo->prepare($sqlGravar);
 
             $query->execute([
-                'nome' => $usuario->getNome(),
-                'email' => $usuario->getEmail(),
+                'nome' => $usuario->nome,
+                'email' => $usuario->email,
             ]);
         }
 
