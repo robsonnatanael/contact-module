@@ -1,0 +1,33 @@
+<section class="msg">
+  <h1 class="text-center">Atendimento ao Cliente</h1>
+
+  <h4>{{mensagem.user}}</h4>
+  <p>Assunto: {{mensagem.assunto}}</p>
+
+  <div class="message-body">
+    <p><img src="assets/images/calendar.png" alt="calendário"> {{mensagem.date_send}}</p>
+    <p>{{mensagem.mensagem}}</p>   
+  </div>    
+</section>
+
+<section class="msg">
+  <h4>Sua resposta:</h4>
+  <div class="resposta">
+    <form id="form-atendimento" action="" method="POST">
+        <fieldset>
+            <input type="hidden" id="id-msg" value="{{mensagem.id_user}}">
+            <input type="hidden" id="id-user" value="{{mensagem.id}}">
+            <textarea name="msg" id="msg-resposta" cols="100" rows="5"></textarea>
+            <br>
+            <button id="form-atendimento" type="submit">Enviar</button>
+        </fieldset>            
+    </form>
+  </div>
+</section>
+
+<section class="msg">
+  <h4 class="text-center">Linha do tempo de mensagens</h4>
+  Mensagem para Atendimento<br>
+  <img src="assets/images/calendar.png" alt="calendário"> {{mensagem.date_send}}<br>
+  {{mensagem.mensagem}}
+</section>

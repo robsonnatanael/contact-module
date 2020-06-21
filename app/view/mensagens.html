@@ -1,0 +1,23 @@
+<section class="msg">
+    <h1 class="text-center">Atendimento ao Cliente</h1>
+    <table class="tabela-msg">
+        <tr>
+            <th></th>
+            <th>Nome</th>
+            <th>Assunto</th>
+            <th>Status</th>
+            <th>Data</th>
+            <!-- <th class="th-msg">Exibir</th> -->
+        </tr>
+        {% for mensagens in mensagem %}
+            <tr>
+                <!-- OBSERVAÇÃO: Mudar chamada da primeira URL -->
+                <td><a href="index.php?pagina=MensagemView&id={{mensagens.id}}"><img class="display-img" src="assets/images/email.png" alt="ver" title="Exibir mensagem"></a></td>
+                <td>{{mensagens.usuario}}</td>
+                <td><a href="index.php?pagina=Chat&idChat={{mensagens.id_chat}}">{{mensagens.assunto}}</a></td>
+                <td>{{mensagens.status}}</td>
+                <td>{{mensagens.date_send}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</section>

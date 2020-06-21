@@ -60,7 +60,7 @@ header .logo a {
 --------------------------------------*/
 
 .form-contact {
-    width: 100%;
+    width: 95%;
     max-width: 600px;
     margin: auto;
     margin-top: 30px;
@@ -115,3 +115,37 @@ footer p a {
     text-decoration: none;
     color: #8C8C8C;
 }
+
+/* Tabela Mensagens
+--------------------------------------*/
+
+.msg {
+    width: 95%;
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #FFF;
+    border-radius: 15px;    
+}
+
+
+.tabela-msg {
+    max-width: 90%;
+    margin: auto;
+}
+
+.tabela-msg th {
+    background-color: #ced4da;
+    width: 200px;
+}
+
+.tabela-msg .th-msg {
+    width: 60px;
+}
+
+.display-img {
+    display: block;
+    margin: auto;
+}
+

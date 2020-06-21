@@ -16,6 +16,16 @@
      * @package Portfólio Painel de Mensagem
      */
 
+    require_once "app/config/config.php";
+    require_once "app/helper/banco.php";
+    require_once "app/helper/Helper.php";
+    
+    use app\model\Mensagem;
+    use app\model\Usuario;
+    use app\model\RepositorioMensagem;
+    
+    $repositorio = new RepositorioMensagem($pdo);
+
     $msg = new Mensagem;
     $usuario = new Usuario;
 
@@ -59,7 +69,10 @@
             $usuario->setFone($_POST['fone']);         
             $msg->setAssunto($_POST['assunto']);
             $msg->setStatus("Pendente");
-            $msg->setData(date("Y-m-d"));
+            $msg->setDateSend(date("Y-m-d"));
+            // Rever método que set Id Chat e Id Fornecedor
+            $msg->setIdChat(0);
+            $msg->setIdFornecedor(1);
             
             $id_usuario = $repositorio->getIdUser($_POST['email']);
             

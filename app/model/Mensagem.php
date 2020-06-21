@@ -9,12 +9,14 @@
      * Também está disponível na Internet neste URL:
      * https://opensource.org/licenses/MIT
      * 
-     * @author Robson Natanael <natanaelrobson@gmail.com>
+     * @author Robson Natanael <contato@robsonnatanael.com.br>
      * @copyright 2020 - RN Comunicação & Marketing
      * @license MIT
      * 
      * @package Portfólio Painel de Mensagem
      */
+
+    namespace app\model;
 
     class Mensagem
     {       
@@ -22,16 +24,10 @@
         private $assunto;
         private $mensagem;
         private $status;
-        private $data;
+        private $date_send;
+        private $id_chat;
+        private $id_fornecedor;
         private $usuario;
-
-        /* public function __construct($id, $assunto, $mensagem, $status, $data) {
-            $this->id = $id;
-            $this->assunto = $assunto;
-            $this->mensagem = $mensagem;
-            $this->status = $status;
-            $this->data = $data;
-        } */
 
         public function setId($id) {
             $this->id = $id;
@@ -67,14 +63,34 @@
             return $this->status;
         }
 
-        public function setData($data)
+        public function setDateSend($date_send)
         {
-            $this->data = $data;
+            $this->date_send = $date_send;
         }
 
-        public function getData()
+        public function getDateSend()
         {
-            return $this->data;
+            return $this->date_send;
+        }
+
+        public function setIdChat($id_chat)
+        {
+            $this->id_chat = $id_chat;
+        }
+
+        public function getIdChat()
+        {
+            return $this->id_chat;
+        }
+
+        public function setIdFornecedor($id_fornecedor)
+        {
+            $this->id_fornecedor = $id_fornecedor;
+        }
+
+        public function getIdFornecedor()
+        {
+            return $this->id_fornecedor;
         }
 
         public function setUsuario(Usuario $usuario) 

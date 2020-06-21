@@ -16,19 +16,14 @@
      * @package Portfólio Painel de Mensagem
      */
 
-     class Usuario
+    namespace app\model;
+    
+    class Usuario
     {       
         private $id;
         private $nome;
         private $email;
         private $fone;
-
-        /* public function __construct($id, $nome, $email, $fone) {
-            $this->id = $id;
-            $this->nome = $nome;
-            $this->email = $email;
-            $this->fone = $fone;
-        } */
 
         public function setId($id) {
             $this->id = $id;

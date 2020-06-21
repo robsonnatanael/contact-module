@@ -25,7 +25,7 @@
     }
 
     function reCAPTCHA() {
-        $secretKey = "6Le0tAEVAAAAAJAkxtDRmWCQSeezY_aUAbvR_y29";
+        $secretKey = SECRET_KEY;
         $responseKey = $_POST['g-recaptcha-response'];
         $userIP = $_SERVER['REMOTE_ADDR'];
 
@@ -37,18 +37,19 @@
     }
 
     function sendEmail($content = '') {
-        require_once __DIR__ . "/../../libs/PHPMailer/PHPMailerAutoload.php";
+        require_once __DIR__ . "/../../Lib/PHPMailer/PHPMailerAutoload.php";
         
         $email = new PHPMailer();
 
         $email->isSMTP();
-        $email->Host = "smtp.hostinger.com.br";
-        $email->Port = 587;
-        $email->SMTPSecure = 'tls';
-        $email->SMTPAuth = true;
-        $email->Username = "dev@robsonnatanael.com.br";
-        $email->Password = "#281885z##d";
-        $email->setFrom("dev@robsonnatanael.com.br", "RN Comunicação & Marketing");
+        $email->Host = HOST;
+        $email->Port = PORT;
+        $email->SMTPSecure = SECURITY;
+        $email->SMTPAuth = SMTP_AUTH;
+        $email->Username = USERNAME;
+        $email->Password = PASSWORD;
+        $email->setFrom(USERNAME, NAME);
+        $email->CharSet = 'UTF-8';
 
         // Digitar o e-mail do destinatário;
         $email->addAddress(EMAIL_NOTIFICACAO);
@@ -59,7 +60,7 @@
         }
         else {
             $subject = 'Notificação de nova mensagem';
-            $text = 'Você tem uma nova mensagem no Painel Administrativo.<br><a href="#">VER MENSAGEM<a>';
+            $text = 'Você tem uma nova mensagem no Painel Administrativo.<br><a href="'.URI.'/index.php?pagina=admin">VER MENSAGEM<a>';
         }
 
         // Digitar o assunto do e-mail;

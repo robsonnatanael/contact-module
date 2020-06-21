@@ -1,0 +1,21 @@
+{
+    "name" : "robsonnatanael/form-contact-recaptcha",
+    "description" : "Contact module with administrative panel and Google reCAPTCHA API",
+    "license" : "MIT",
+    "authors" : [
+        {
+            "name" : "Robson Natanael",
+            "email" : "contato@robsonnatanael.com.br"
+        }
+    ],
+
+    "require" : {
+        "twig/twig" : "3.0"
+    },
+
+    "autoload": {
+        "psr-4": {  
+            "app\\": "app/"
+                }
+    }
+}

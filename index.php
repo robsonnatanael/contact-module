@@ -7,26 +7,19 @@
      * Este arquivo de origem está sujeito à Licença ...
      * incluído neste pacote no arquivo LICENSE.txt.
      * Também está disponível na Internet neste URL:
-     * https://www.robsonnatanael.com.br/...
+     * https://opensource.org/licenses/MIT
      * 
-     * @author Robson Natanael <natanaelrobson@gmail.com>
+     * @author Robson Natanael <contato@robsonnatanael.com.br>
      * @copyright 2020 - RN Comunicação & Marketing
-     * @license 
+     * @license MIT 
      * 
      * @package Portfólio Painel de Mensagem
      */
 
-    require_once "app/config/config.php";
-    require_once "app/helper/banco.php";
-    require_once "app/helper/Helper.php";
-    require_once "app/model/Usuario.php";
-    require_once "app/model/Mensagem.php";
-    require_once "app/model/RepositorioMensagem.php";
-
-    $repositorio = new RepositorioMensagem($pdo);
+    require_once "vendor/autoload.php";   
 
     // lê o conteúdo do template e armazena em uma variável
-    $template = file_get_contents('app/template/estrutura.html');
+    $estrutura = file_get_contents('app/template/estrutura.html');
 
     ob_start(); // Ativa o buffer de saída
         // verifica qual arquivo (rota) deve ser usado para tratar a requisição
@@ -46,6 +39,6 @@
         $saida = ob_get_contents(); // retorna o conteúdo do buffer de saída
     ob_end_clean(); // Limpa (apaga) o buffer de saída e desativa o buffer de saída
 
-    $templatePronto = str_replace('{{area_dinamica}}', $saida, $template);
+    $templatePronto = str_replace('{{area_dinamica}}', $saida, $estrutura);
 
     echo $templatePronto;

@@ -9,9 +9,9 @@
      * Também está disponível na Internet neste URL:
      * https://www.robsonnatanael.com.br/...
      * 
-     * @author Robson Natanael <natanaelrobson@gmail.com>
+     * @author Robson Natanael <contato@robsonnatanael.com.br>
      * @copyright 2020 - RN Comunicação & Marketing
-     * @license 
+     * @license MIT
      * 
      * @package Portfólio Painel de Mensagem
      */
