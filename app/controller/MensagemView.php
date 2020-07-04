@@ -1,64 +1,65 @@
 <?php
-    /**
-     * 2020 - RN Comunicação & Marketing
-     * 
-     * * AVISO DE LICENÇA
-     * 
-     * Este arquivo de origem está sujeito à Licença ...
-     * incluído neste pacote no arquivo LICENSE.txt.
-     * Também está disponível na Internet neste URL:
-     * https://opensource.org/licenses/MIT
-     * 
-     * @author Robson Natanael <contato@robsonnatanael.com.br>
-     * @copyright 2020 - RN Comunicação & Marketing
-     * @license MIT 
-     * 
-     * @package Portfólio Painel de Mensagem
-     */
 
-    require_once "app/config/config.php";
-    require_once "app/helper/banco.php";
+/**
+ * 2020 - RN Comunicação & Marketing
+ * 
+ * * AVISO DE LICENÇA
+ * 
+ * Este arquivo de origem está sujeito à Licença ...
+ * incluído neste pacote no arquivo LICENSE.txt.
+ * Também está disponível na Internet neste URL:
+ * https://opensource.org/licenses/MIT
+ * 
+ * @author Robson Natanael <contato@robsonnatanael.com.br>
+ * @copyright 2020 - RN Comunicação & Marketing
+ * @license MIT 
+ * 
+ * @package Contact Module
+ */
 
-    use app\model\RepositorioMensagem;
-    use app\model\Mensagem;
-    use app\model\Usuario;
+use RNFactory\Database\Connection;
+use RNFactory\Database\Transaction;
+use app\model\Chat;
+use app\model\Usuario;
+use app\model\Mensagem;
 
-    $repositorio = new RepositorioMensagem($pdo);
-    
-    if (isset($_GET['id'])) {
-        $id = $_GET['id'];
+Transaction::open('database');
+
+$mensagem = Mensagem::find($_GET['id']);
+
+$usuario = Usuario::find($mensagem->id_usuario);
+
+$chat = Chat::find($mensagem->id_chat);
+
+$msg = array();
+$msg['usuario']     = $usuario->nome;
+$msg['assunto']     = $chat->assunto;
+$msg['date_send']   = $mensagem->date_send;
+$msg['mensagem']    = $mensagem->mensagem;
+
+$mensagens = Mensagem::all('id_chat = ' . $chat->id);
+
+Transaction::close();
+
+$chat_view  = array();
+foreach ($mensagens as $conversa) {
+    if ($conversa->id_usuario == $usuario->id) {
+        $chat_usuario = $usuario->nome;
     } else {
-        $id = NULL;
+        $chat_usuario = "Fornecedor"; // Buscar fornecedor na varivel sessão
     }
-    
-    $mensagem = $repositorio->getMsg('id='.$id);
+    $chat_view[$conversa->id]['chat_usuario']   = $chat_usuario;
+    $chat_view[$conversa->id]['chat_date']      = $conversa->date_send;
+    $chat_view[$conversa->id]['chat_mensagem']  = $conversa->mensagem;
+}
 
-    $msg = array();
-    foreach ($mensagem as $m) {
-        $msg['id'] = $m['id'];
-        $msg['assunto'] = $m['assunto'];
-        $msg['mensagem'] = $m['mensagem'];
-        $msg['status'] = $m['status'];
-        $msg['date_send'] = $m['date_send'];
-        $msg['id_chat'] = $m['id_chat'];
-        $msg['id_fornecedor'] = $m['id_fornecedor'];
-        
-        $usuario = $m['id_usuario'];
-        $usuario = $repositorio->getUser('id='.$usuario);
-       
-        foreach ($usuario as $user) {
-            $msg['id_user'] = $user['id'];
-            $msg['user'] = $user['nome'];
-        }
-        
-    }
+$msg['chat'] = $chat_view;
 
 $loader = new \Twig\Loader\FilesystemLoader('app/view');
 $twig = new \Twig\Environment($loader);
 
 $template = $twig->load('mensagem-view.html');
 
-$parametros = array();
-$parametros['mensagem'] = $msg;
+$parametros = $msg;
 
 echo $template->render($parametros);

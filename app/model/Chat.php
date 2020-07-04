@@ -22,23 +22,34 @@ namespace app\model;
 use RNFactory\Database\Transaction;
 use PDO;
 
-class Mensagem
+class Chat
 {
     private $data;
 
-    public function __set($property, $value)
+    function __set($property, $value)
     {
         $this->data[$property] = $value;
     }
 
-    public function __get($property)
+    function __get($property)
     {
         return $this->data[$property];
     }
 
     public static function find($id)
     {
-        $sql = "SELECT * FROM mensagens WHERE id = '$id' ";
+        $sql = "SELECT * FROM chat WHERE id = '$id' ";
+        $conn = Transaction::get();
+        $result = $conn->query($sql);
+        return $result->fetchObject(__CLASS__);
+    }
+
+    public function getChat($condition = '')
+    {
+        $sql = "SELECT * FROM chat ";
+        if ($condition) {
+            $sql .= "WHERE $condition";
+        }
         $conn = Transaction::get();
         $result = $conn->query($sql);
         return $result->fetchObject(__CLASS__);
@@ -46,7 +57,7 @@ class Mensagem
 
     public static function all($filter = '')
     {
-        $sql = "SELECT * FROM mensagens ";
+        $sql = "SELECT * FROM chat ";
         if ($filter) {
             $sql .= "where $filter";
         }
@@ -57,22 +68,21 @@ class Mensagem
 
     public function save()
     {
-        if (empty($this->data['id'])) {
-            $sql = "INSERT INTO mensagens (id_chat, id_usuario, id_fornecedor, mensagem, date_send)" .
-                " VALUES ('{$this->chat->id}', " .
-                " '{$this->usuario->id}', " .
-                " '{$this->chat->id_fornecedor}', " .
-                " '{$this->mensagem}', " .
-                " '{$this->date_send}')";
-        } else {
-            $sql = "UPDATE mensagens SET id_chat        = '{$this->chat->id}', " .
-                "id_usuario     = '{$this->usuario->id}', " .
-                "id_fornecedor  = '{$this->chat->id_fornecedor}', " .
-                "mensagem       = '{$this->mensagem}', " .
-                "date_send      = '{$this->date_send}', " .
-                " WHERE id      = '{$this->id}'";
-        }
+        $sql = "INSERT INTO chat (id_usuario, id_fornecedor, assunto, status) " .
+            " VALUE ('{$this->id_usuario}', " .
+            "    '{$this->id_fornecedor}', " .
+            "    '{$this->assunto}', " .
+            "    '{$this->status}')";
         $conn = Transaction::get();
         return $conn->exec($sql);
+    }
+
+    public function getLastId()
+    {
+        $sql = "SELECT max(id) as max FROM chat";
+        $conn = Transaction::get();
+        $result = $conn->query($sql);
+        $data = $result->fetch(PDO::FETCH_OBJ);
+        return $data->max;
     }
 }

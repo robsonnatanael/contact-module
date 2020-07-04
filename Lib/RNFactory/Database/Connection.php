@@ -1,12 +1,14 @@
 <?php
-    namespace Lib\RNFactory\Database;
+    namespace RNFactory\Database;
+
+    use PDO;
     
     final class Connection {
         private function __construct() {}
 
         public static function open($name) {
-            if (file_exists("app/config/{$name}.ini")) {
-                $db = parse_ini_file("app/config/{$name}.ini");
+            if (file_exists("app/database/{$name}.ini")) {
+                $db = parse_ini_file("app/database/{$name}.ini");
             }
             else {
                 throw new Exception("Arquivo '$name' não encontrado");

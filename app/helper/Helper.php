@@ -60,7 +60,7 @@
         }
         else {
             $subject = 'Notificação de nova mensagem';
-            $text = 'Você tem uma nova mensagem no Painel Administrativo.<br><a href="'.URI.'/index.php?pagina=admin">VER MENSAGEM<a>';
+            $text = 'Você tem uma nova mensagem no Painel Administrativo.<br><a href="'.URI.'/index.php?page=admin">VER MENSAGEM<a>';
         }
 
         // Digitar o assunto do e-mail;

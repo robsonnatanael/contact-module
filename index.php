@@ -13,7 +13,7 @@
      * @copyright 2020 - RN Comunicação & Marketing
      * @license MIT 
      * 
-     * @package Portfólio Painel de Mensagem
+     * @package Contact Module
      */
 
     require_once "vendor/autoload.php";   
@@ -23,15 +23,15 @@
 
     ob_start(); // Ativa o buffer de saída
         // verifica qual arquivo (rota) deve ser usado para tratar a requisição
-        $pagina = "enviar-mensagem"; // rota padrão
+        $page = "ContactForm"; // rota padrão
     
-        if (array_key_exists("pagina", $_GET)) {
-            $pagina = $_GET["pagina"];
+        if (array_key_exists("page", $_GET)) {
+            $page = $_GET["page"];
          }
 
         // inclui o aquivo que vai tratar a requisição
-        if (is_file("app/controller/{$pagina}.php")) {
-            require_once "app/controller/{$pagina}.php";
+        if (is_file("app/controller/{$page}.php")) {
+            require_once "app/controller/{$page}.php";
         } else {
             echo "Página não encontrada!";
         }

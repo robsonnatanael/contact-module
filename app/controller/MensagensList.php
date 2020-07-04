@@ -1,52 +1,54 @@
 <?php
-    /**
-     * 2020 - RN Comunicação & Marketing
-     * 
-     * * AVISO DE LICENÇA
-     * 
-     * Este arquivo de origem está sujeito à Licença ...
-     * incluído neste pacote no arquivo LICENSE.txt.
-     * Também está disponível na Internet neste URL:
-     * https://opensource.org/licenses/MIT
-     * 
-     * @author Robson Natanael <contato@robsonnatanael.com.br>
-     * @copyright 2020 - RN Comunicação & Marketing
-     * @license MIT 
-     * 
-     * @package Portfólio Painel de Mensagem
-     */
 
-    require_once "app/config/config.php";
-    require_once "app/helper/banco.php";
+/**
+ * 2020 - RN Comunicação & Marketing
+ * 
+ * AVISO DE LICENÇA
+ * 
+ * Este arquivo de origem está sujeito à Licença ...
+ * incluído neste pacote no arquivo LICENSE.
+ * Também está disponível na Internet neste URL:
+ * https://opensource.org/licenses/MIT
+ * 
+ * @author Robson Natanael <contato@robsonnatanael.com.br>
+ * @copyright 2020 - RN Comunicação & Marketing
+ * @license MIT 
+ * 
+ * @package Contact Module
+ */
 
-    use app\model\RepositorioMensagem;
-    
-    $repositorio = new RepositorioMensagem($pdo);
-    
-    // implementar busca de fornecedor
-    $fornecedor = 1;
-    // ***
+use RNFactory\Database\Connection;
+use RNFactory\Database\Transaction;
+use app\model\Chat;
+use app\model\Usuario;
+use app\model\Mensagem;
 
-    $msg = $repositorio->getMsg('id_fornecedor='.$fornecedor);
+Transaction::open('database');
+$chat = Chat::all('id_fornecedor = 1'); // Implementar regra de negócio para saber qual fornecedor está visualizando chat
 
-    // OBSERVAÇÃO: melhorar regra de negócio!
-    $mensagens = array();
-    $cont = 0;
-    foreach ($msg as $msgs) {
-        $id_usuario = $msgs['id_usuario'];
-        $usuario = $repositorio->getUser("id=$id_usuario");
-        $msgs['usuario'] = $usuario[0]['nome'];
-        $mensagens[$cont] = $msgs;
-        $cont++;
-    }
-    // ***
+$chat_list = array();
 
-    $loader = new \Twig\Loader\FilesystemLoader('app/view');
-    $twig = new \Twig\Environment($loader);
+foreach ($chat as $chats) {
+    $usuario = Usuario::find($chats->id_usuario);
+    $mensagem = Mensagem::find($chats->id);
 
-    $template = $twig->load('mensagens.html');   
+    $chat_list[$chats->id]['id']            = $chats->id;
+    $chat_list[$chats->id]['id_fornecedor'] = $chats->id_fornecedor;
+    $chat_list[$chats->id]['nome']          = $usuario->nome;
+    $chat_list[$chats->id]['assunto']       = $chats->assunto;
+    $chat_list[$chats->id]['status']        = $chats->status;
+    $chat_list[$chats->id]['id_mensagem']   = $mensagem->id;
+    $chat_list[$chats->id]['date_send']     = $mensagem->date_send;
+}
 
-    $parametros = array();
-    $parametros['mensagem'] = $mensagens;
+Transaction::close();
 
-    echo $template->render($parametros);  
+$loader = new \Twig\Loader\FilesystemLoader('app/view');
+$twig = new \Twig\Environment($loader);
+
+$template = $twig->load('mensagens.html');
+
+$parametros = array();
+$parametros['chat_list'] = $chat_list;
+
+echo $template->render($parametros);
