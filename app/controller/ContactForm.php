@@ -85,7 +85,6 @@ try {
     };
 
     require_once __DIR__ . "/../view/formulario-contato.html";
-    
 } catch (Exception $e) {
     Transaction::rollback();
     print $e->getMessage();

@@ -44,17 +44,6 @@ class Chat
         return $result->fetchObject(__CLASS__);
     }
 
-    public function getChat($condition = '')
-    {
-        $sql = "SELECT * FROM chat ";
-        if ($condition) {
-            $sql .= "WHERE $condition";
-        }
-        $conn = Transaction::get();
-        $result = $conn->query($sql);
-        return $result->fetchObject(__CLASS__);
-    }
-
     public static function all($filter = '')
     {
         $sql = "SELECT * FROM chat ";
