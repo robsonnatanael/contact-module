@@ -38,7 +38,7 @@ class Chat
 
     public static function find($id)
     {
-        $sql = "SELECT * FROM chat WHERE id = '$id' ";
+        $sql = "SELECT * FROM message_chat WHERE id = '$id' ";
         $conn = Transaction::get();
         $result = $conn->query($sql);
         return $result->fetchObject(__CLASS__);
@@ -46,7 +46,7 @@ class Chat
 
     public static function all($filter = '')
     {
-        $sql = "SELECT * FROM chat ";
+        $sql = "SELECT * FROM message_chat ";
         if ($filter) {
             $sql .= "where $filter";
         }
@@ -57,7 +57,7 @@ class Chat
 
     public function save()
     {
-        $sql = "INSERT INTO chat (id_usuario, id_fornecedor, assunto, status) " .
+        $sql = "INSERT INTO message_chat (id_usuario, id_fornecedor, assunto, status) " .
             " VALUE ('{$this->id_usuario}', " .
             "    '{$this->id_fornecedor}', " .
             "    '{$this->assunto}', " .
@@ -68,7 +68,7 @@ class Chat
 
     public function getLastId()
     {
-        $sql = "SELECT max(id) as max FROM chat";
+        $sql = "SELECT max(id) as max FROM message_chat";
         $conn = Transaction::get();
         $result = $conn->query($sql);
         $data = $result->fetch(PDO::FETCH_OBJ);

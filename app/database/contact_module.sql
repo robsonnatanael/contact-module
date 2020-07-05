@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Tempo de geração: 27-Jun-2020 às 19:07
+-- Tempo de geração: 05-Jul-2020 às 14:55
 -- Versão do servidor: 8.0.18
 -- versão do PHP: 7.4.0
 
@@ -21,22 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `portfolio_contact_module`
 --
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `chat`
---
-
-DROP TABLE IF EXISTS `chat`;
-CREATE TABLE IF NOT EXISTS `chat` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_usuario` int(11) NOT NULL,
-  `id_fornecedor` int(11) NOT NULL,
-  `assunto` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `status` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -66,6 +50,22 @@ CREATE TABLE IF NOT EXISTS `mensagens` (
   `id_fornecedor` int(11) NOT NULL,
   `mensagem` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `date_send` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `message_chat`
+--
+
+DROP TABLE IF EXISTS `message_chat`;
+CREATE TABLE IF NOT EXISTS `message_chat` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(11) NOT NULL,
+  `id_fornecedor` int(11) NOT NULL,
+  `assunto` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `status` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
