@@ -25,35 +25,25 @@ use app\model\Mensagem;
 
 Transaction::open('database');
 
-$mensagem = Mensagem::find($_GET['id']);
-
-$usuario = Usuario::find($mensagem->id_usuario);
-
-$chat = Chat::find($mensagem->id_chat);
+$mensagens = Mensagem::all('id_chat = ' . $_GET['id']);
 
 $msg = array();
-$msg['id_usuario']  = $mensagem->id_usuario;
-$msg['usuario']     = $usuario->nome;
-$msg['assunto']     = $chat->assunto;
-$msg['date_send']   = $mensagem->date_send;
-$msg['id_chat']     = $mensagem->id_chat;
-$msg['mensagem']    = $mensagem->mensagem;
-
-$mensagens = Mensagem::all('id_chat = ' . $chat->id);
-
-Transaction::close();
 
 $chat_view  = array();
-foreach ($mensagens as $conversa) {
-    if ($conversa->id_usuario == $usuario->id) {
-        $chat_usuario = $usuario->nome;
-    } else {
-        $chat_usuario = "Fornecedor"; // Buscar fornecedor na varivel sessão
-    }
-    $chat_view[$conversa->id]['chat_usuario']   = $chat_usuario;
-    $chat_view[$conversa->id]['chat_date']      = $conversa->date_send;
-    $chat_view[$conversa->id]['chat_mensagem']  = $conversa->mensagem;
+foreach ($mensagens as $mensagem) {
+
+    $usuario = Usuario::find($mensagem->id_usuario);
+    $chat = Chat::find($mensagem->id_chat);
+
+    $chat_view[$mensagem->id]['id_usuario'] = $usuario->id;
+    $chat_view[$mensagem->id]['usuario']    = $usuario->nome;
+    $chat_view[$mensagem->id]['id_chat']    = $mensagem->id_chat;
+    $chat_view[$mensagem->id]['assunto']    = $chat->assunto;
+    $chat_view[$mensagem->id]['mensagem']   = $mensagem->mensagem;
+    $chat_view[$mensagem->id]['date_send']  = $mensagem->date_send;
 }
+
+Transaction::close();
 
 $msg['chat'] = $chat_view;
 

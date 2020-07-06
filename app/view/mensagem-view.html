@@ -1,13 +1,15 @@
 <section class="msg">
   <h1 class="text-center">Atendimento ao Cliente</h1>
 
-  <p>Cliente: {{ usuario }}</p>
-  <p>Assunto: {{ assunto }}</p>
-
+  {% for conteudo in chat %}
+  <p>Cliente: {{ conteudo.usuario }}</p>
+  <p>Assunto: {{ conteudo.assunto }}</p>
   <div class="message-body">
-    <p><img src="assets/images/calendar.png" alt="calendário"> {{ date_send }}</p>
-    <p>{{ mensagem }}</p>
+    <p><img src="assets/images/calendar.png" alt="calendário"> {{ conteudo.date_send }}</p>
+    <p>{{ conteudo.mensagem }}</p>
   </div>
+  <hr>
+  {% endfor %}
 </section>
 
 <section class="msg">
@@ -16,7 +18,7 @@
     <form id="form-atendimento" action="index.php?page=ReplyContact" method="POST">
       <fieldset>
         <input type="hidden" id="id-chat" name="id-chat" value="{{ id_chat }}">
-        <textarea class="reply-area" name="message" id="message" ></textarea>
+        <textarea class="reply-area" name="message" id="message"></textarea>
       </fieldset>
       <button id="form-atendimento" type="submit">Enviar</button>
     </form>
@@ -27,8 +29,8 @@
   <h4 class="text-center">Linha do tempo de mensagens</h4>
   <br>
   {% for conteudo in chat %}
-  <img src="assets/images/calendar.png" alt="calendário"> {{ conteudo.chat_date }}
-  <strong>{{ conteudo.chat_usuario }}</strong><br>
-  {{ conteudo.chat_mensagem }}<br><br>
+  <img src="assets/images/calendar.png" alt="calendário"> {{ conteudo.date_send }}
+  <strong>{{ conteudo.usuario }}</strong><br>
+  {{ conteudo.mensagem }}<br><br>
   {% endfor %}
 </section>
