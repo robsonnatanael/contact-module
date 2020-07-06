@@ -17,11 +17,6 @@
  * @package Contact Module
  */
 
-// Conexão ao banco de dados (MySQL)
-define("USUARIO", "X-X-X");
-define("SENHA", "X-X-X");
-define("DSN", "mysql:dbname=X-X-X;host=X-X-X");
-
 // URI Base
 define("URI", "X-X-X");
 

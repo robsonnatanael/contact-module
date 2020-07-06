@@ -33,7 +33,6 @@ foreach ($chat as $chats) {
     $mensagem = Mensagem::find($chats->id);
 
     $chat_list[$chats->id]['id']            = $chats->id;
-    $chat_list[$chats->id]['id_fornecedor'] = $chats->id_fornecedor;
     $chat_list[$chats->id]['nome']          = $usuario->nome;
     $chat_list[$chats->id]['assunto']       = $chats->assunto;
     $chat_list[$chats->id]['status']        = $chats->status;

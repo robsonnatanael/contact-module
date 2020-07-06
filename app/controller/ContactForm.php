@@ -77,6 +77,7 @@ try {
             $mensagem->usuario      = $usuario;
             $mensagem->date_send    = date('Y-m-d');
             $mensagem->save();
+            Transaction::close();
             Mail::sendMail();
             echo "<script>alert('Mensagem enviada com sucesso!');</script>";
         } else {

@@ -149,3 +149,10 @@ footer p a {
     margin: auto;
 }
 
+/* Message View
+--------------------------------------*/
+
+.reply-area {
+    width: 100%;
+    height: 150px;
+}

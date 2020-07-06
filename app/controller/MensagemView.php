@@ -32,9 +32,11 @@ $usuario = Usuario::find($mensagem->id_usuario);
 $chat = Chat::find($mensagem->id_chat);
 
 $msg = array();
+$msg['id_usuario']  = $mensagem->id_usuario;
 $msg['usuario']     = $usuario->nome;
 $msg['assunto']     = $chat->assunto;
 $msg['date_send']   = $mensagem->date_send;
+$msg['id_chat']     = $mensagem->id_chat;
 $msg['mensagem']    = $mensagem->mensagem;
 
 $mensagens = Mensagem::all('id_chat = ' . $chat->id);

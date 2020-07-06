@@ -6,7 +6,9 @@ final class ReCaptcha
 {
     public static function reCAPTCHA()
     {
-        $secretKey = "6Le0tAEVAAAAAJAkxtDRmWCQSeezY_aUAbvR_y29"; // OBS.: Definer SecretKey como constate posteriormente ou recuperar do banco de dados
+        require_once 'app/config/config.php';
+
+        $secretKey = SECRET_KEY;
         $responseKey = $_POST['g-recaptcha-response'];
         $userIP = $_SERVER['REMOTE_ADDR'];
 

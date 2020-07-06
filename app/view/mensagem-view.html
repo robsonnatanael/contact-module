@@ -13,14 +13,12 @@
 <section class="msg">
   <h4>Sua resposta:</h4>
   <div class="resposta">
-    <form id="form-atendimento" action="" method="POST">
+    <form id="form-atendimento" action="index.php?page=ReplyContact" method="POST">
       <fieldset>
-        <input type="hidden" id="id-chat" value="{{ id_chat }}">
-        <input type="hidden" id="id-user" value="{{ id }}">
-        <textarea name="msg" id="msg-resposta" cols="100" rows="5"></textarea>
-        <br>
-        <button id="form-atendimento" type="submit">Enviar</button>
+        <input type="hidden" id="id-chat" name="id-chat" value="{{ id_chat }}">
+        <textarea class="reply-area" name="message" id="message" ></textarea>
       </fieldset>
+      <button id="form-atendimento" type="submit">Enviar</button>
     </form>
   </div>
 </section>

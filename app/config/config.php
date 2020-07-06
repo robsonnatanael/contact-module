@@ -17,11 +17,6 @@
  * @package Contact Module
  */
 
-// Conexão ao banco de dados (MySQL)
-define("USUARIO", "devrobson");
-define("SENHA", "robson");
-define("DSN", "mysql:dbname=portfolio_painel_mensagem;host=127.0.0.1:3308");
-
 // URI Base
 define("URI", "http://projects/portfolio/contact_module/");
 
