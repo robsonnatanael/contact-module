@@ -24,12 +24,13 @@ use app\model\Chat;
 use app\model\Mail;
 use app\model\Mensagem;
 use app\model\Usuario;
+use app\model\Fornecedor;
 
 try {
 
     if (count($_POST) > 0) {
-
         $validacao = true;
+        $fornecedor = 1; // Criar regra de negócio para fornecedor
 
         if (strlen($_POST['name']) > 0) {
             $usuario                = new Usuario;
@@ -66,9 +67,9 @@ try {
 
             $chat                   = new Chat;
             $chat->id_usuario       = $usuario->id;
-            $chat->id_fornecedor    = 1; // Enquanto existir apenas um fornecedor
+            $chat->id_fornecedor    = $fornecedor;
             $chat->assunto          = $_POST['assunto'];
-            $chat->status           = "Pendente"; // Válido enquanto não houver regra de negócio
+            $chat->status           = "Pendente"; // Enquanto não houver regra de negócio
             $chat->save();
 
             $chat->id = $chat->getLastId();
@@ -77,8 +78,16 @@ try {
             $mensagem->usuario      = $usuario;
             $mensagem->date_send    = date('Y-m-d');
             $mensagem->save();
+
+            $fornecedor = Fornecedor::find($fornecedor);
+            $usuario2 = Usuario::find($fornecedor->id_usuario);
+
             Transaction::close();
-            Mail::sendMail();
+
+            $user_mail = $usuario2->email;
+            $user_name = $usuario2->nome;
+            Mail::sendMail($user_mail, $user_name);
+
             echo "<script>alert('Mensagem enviada com sucesso!');</script>";
         } else {
             echo "<script>alert('Os campos obrigratórios devem ser preenchidos!');</script>";

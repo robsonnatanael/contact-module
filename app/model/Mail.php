@@ -10,7 +10,7 @@ use PHPMailer\PHPMailer\Exception;
 
 class Mail
 {
-    public static function sendMail()
+    public static function sendMail($email, $name)
     {
         // Load Composer's autoloader
         require_once 'vendor/autoload.php';
@@ -33,8 +33,8 @@ class Mail
             $mail->CharSet = 'UTF-8';
 
             //Recipients
-            $mail->setFrom('dev@robsonnatanael.com.br', 'Robson');
-            $mail->addAddress('natanaelrobson@gmail.com', 'Natanael');  // Add a recipient
+            $mail->setFrom(USERNAME, NAME);
+            $mail->addAddress($email, $name);  // Add a recipient
             /* $mail->addAddress('ellen@example.com');                  // Name is optional
                 $mail->addReplyTo('info@example.com', 'Information');
                 $mail->addCC('cc@example.com');

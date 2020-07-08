@@ -22,18 +22,18 @@ use RNFactory\Database\Transaction;
 use app\model\Chat;
 use app\model\Mensagem;
 use app\model\Usuario;
+use app\model\Mail;
+use app\model\Fornecedor;
 
 try {
 
     if (strlen($_POST['message']) > 0) {
 
-        $id_fornecedor = 1; // Enquanto existir apenas um fornecedor
-
         Transaction::open('database');
         $chat = Chat::find($_POST['id-chat']);
-
+        $fornecedor = Fornecedor::find($chat->id_fornecedor);
         $user = new Usuario;
-        $user->id = 0;
+        $user->id = $fornecedor->id_usuario;
 
         $message = new Mensagem;
         $message->chat          = $chat;
@@ -46,9 +46,12 @@ try {
         $user = Usuario::find($chat->id_usuario);
         Transaction::close();
 
-        var_dump($user);
+        $user_name = $user->nome;
+        $user_mail = $user->email;
+
+        Mail::sendMail($user_mail, $user_name);
     }
-    //header('Location: index.php?page=MensagemView&id=' . $_POST['id-chat'] . '');
+    header('Location: index.php?page=MensagemView&id=' . $_POST['id-chat'] . '');
 } catch (Exception $e) {
     Transaction::rollback();
     print $e->getMessage();

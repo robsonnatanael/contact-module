@@ -28,23 +28,25 @@ Transaction::open('database');
 $mensagens = Mensagem::all('id_chat = ' . $_GET['id']);
 
 $msg = array();
+$msg['id_chat'] = $_GET['id'];
+
+$chat = Chat::find($_GET['id']);
+$msg['assunto'] = $chat->assunto;
 
 $chat_view  = array();
 foreach ($mensagens as $mensagem) {
 
     $usuario = Usuario::find($mensagem->id_usuario);
-    $chat = Chat::find($mensagem->id_chat);
+    //$chat = Chat::find($mensagem->id_chat);
 
     $chat_view[$mensagem->id]['id_usuario'] = $usuario->id;
     $chat_view[$mensagem->id]['usuario']    = $usuario->nome;
-    $chat_view[$mensagem->id]['id_chat']    = $mensagem->id_chat;
-    $chat_view[$mensagem->id]['assunto']    = $chat->assunto;
+    //$chat_view[$mensagem->id]['assunto']    = $chat->assunto;
     $chat_view[$mensagem->id]['mensagem']   = $mensagem->mensagem;
     $chat_view[$mensagem->id]['date_send']  = $mensagem->date_send;
 }
 
 Transaction::close();
-
 $msg['chat'] = $chat_view;
 
 $loader = new \Twig\Loader\FilesystemLoader('app/view');

@@ -27,7 +27,7 @@ define("SECURITY", "tls");
 define("SMTP_AUTH", true);
 define("USERNAME", "dev@robsonnatanael.com.br");
 define("PASSWORD", "#281885z##d");
-define("NAME", "Painel de Mensagens");
+define("NAME", "Módulo de Contato");
 
 // E-mail para notificação
 define("EMAIL_NOTIFICACAO", "natanaelrobson@gmail.com");

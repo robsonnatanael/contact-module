@@ -1,9 +1,9 @@
 <section class="msg">
   <h1 class="text-center">Atendimento ao Cliente</h1>
 
+  <p><strong>Assunto: {{ assunto }}</strong></p>
   {% for conteudo in chat %}
-  <p>Cliente: {{ conteudo.usuario }}</p>
-  <p>Assunto: {{ conteudo.assunto }}</p>
+  <p>{{ conteudo.usuario }}</p>
   <div class="message-body">
     <p><img src="assets/images/calendar.png" alt="calendário"> {{ conteudo.date_send }}</p>
     <p>{{ conteudo.mensagem }}</p>
