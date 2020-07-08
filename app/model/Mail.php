@@ -48,7 +48,7 @@ class Mail
             $mail->isHTML(true);                                        // Set email format to HTML
             $mail->Subject = 'Notificação de nova mensagem';
             //$mail->Body    = 'Você tem uma nova mensagem no Painel Administrativo.<br><a href="'.URI.'/index.php?page=admin">VER MENSAGEM<a>';
-            $mail->Body    = 'Você tem uma nova mensagem no Painel Administrativo.<br><a href="http://projects/portfolio/contact_module/index.php?page=MensagensList">VER MENSAGEM<a>';
+            $mail->Body    = 'Você tem uma nova mensagem no Painel Administrativo.<br><a href="'.URI.'">VER MENSAGEM<a>';
             /* $mail->AltBody = 'This is the body in plain text for non-HTML mail clients'; */
 
             $mail->send();

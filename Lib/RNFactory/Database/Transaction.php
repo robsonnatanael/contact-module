@@ -1,35 +1,43 @@
 <?php
-    namespace RNFactory\Database;
 
-    use RNFactory\Database\Connection;
+namespace RNFactory\Database;
 
-    final class Transaction {
-        private static $conn;
+use RNFactory\Database\Connection;
 
-        private function __construct() {}
+final class Transaction
+{
+    private static $conn;
 
-        public static function open($database) {
-            if (empty(self::$conn)) {
-                self::$conn = Connection::open($database);
-                self::$conn->beginTransaction();
-            }
-        }
+    private function __construct()
+    {
+    }
 
-        public static function get() {
-            return self::$conn;
-        }
-
-        public static function rollback() {
-            if (self::$conn) {
-                self::$conn->rollback();
-                self::$conn = NULL;
-            }
-        }
-
-        public static function close() {
-            if (self::$conn) {
-                self::$conn->commit();
-                self::$conn = NULL;
-            }
+    public static function open($database)
+    {
+        if (empty(self::$conn)) {
+            self::$conn = Connection::open($database);
+            self::$conn->beginTransaction();
         }
     }
+
+    public static function get()
+    {
+        return self::$conn;
+    }
+
+    public static function rollback()
+    {
+        if (self::$conn) {
+            self::$conn->rollback();
+            self::$conn = NULL;
+        }
+    }
+
+    public static function close()
+    {
+        if (self::$conn) {
+            self::$conn->commit();
+            self::$conn = NULL;
+        }
+    }
+}

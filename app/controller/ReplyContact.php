@@ -17,7 +17,6 @@
  * @package Contact Module
  */
 
-use RNFactory\Database\Connection;
 use RNFactory\Database\Transaction;
 use app\model\Chat;
 use app\model\Mensagem;

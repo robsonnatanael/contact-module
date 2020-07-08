@@ -4,51 +4,55 @@
   <form id="form-de-contato" action="index.php" method="POST">
 
     <fieldset>
-     
+
       <div>
         <label for="name">
           <span>Nome: </span><abbr>*</abbr>
-          <input type="text" id="name" name="name">          
+          <input type="text" id="name" name="name" value="{{ name }}">
         </label>
+        <span>{{ erro_name }}</span><br>
       </div>
-      
+
       <div>
         <label for="email">
           <span>E-mail: </span><abbr>*</abbr>
-          <input type="email" id="email" name="email">
+          <input type="email" id="email" name="email" value="{{ email }}">
         </label>
+        <span>{{ erro_email }}</span><br>
       </div>
-      
+
       <div>
         <label for="fone">
           <span>Fone / WhatsApp: </span>
           <input type="tel" id="fone" name="fone" placeholder="DDD + Número" pattern="[0-9]{11}">
         </label>
       </div>
-      
+
       <div>
         <label for="assunto">
           <span>Assunto: </span>
           <input type="text" id="assunto" name="assunto">
         </label>
       </div>
-      
+
       <div>
         <label for="mensagem">
           <span>Mensagem: </span><abbr>*</abbr>
-          <textarea id="mensagem" name="mensagem"></textarea>
+          <textarea id="mensagem" name="mensagem">{{ message }}</textarea>
         </label>
+        <span>{{ erro_message }}</span><br>
       </div>
-    
+
     </fieldset>
 
     <div class="required-field">
       <small class="text-center">Campos marcados com <abbr title="asterisco">*</abbr> são obrigatórios.</small>
     </div>
-    <div class="g-recaptcha" data-sitekey="6Le0tAEVAAAAAJQHu_B0BexyPy1uZI7rsyWeQQuM"></div> <!-- Site Key reCAPTCHA Google -->
+    <div class="g-recaptcha" data-sitekey="{{ recaptcha }}"></div> <!-- Site Key reCAPTCHA Google -->
+    <span>{{ erro_recaptcha }}</span><br>
     <br>
-    <button id="form-de-contato" type="submit">Enviar</button>    
-    
+    <button id="form-de-contato" type="submit">Enviar</button>
+
   </form>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script> <!-- API reCAPTCHA Google -->
 </section>

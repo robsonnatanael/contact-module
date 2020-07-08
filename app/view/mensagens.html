@@ -7,16 +7,13 @@
       <th>Assunto</th>
       <th>Status</th>
       <th>Data</th>
-      <!-- <th class="th-msg">Exibir</th> -->
     </tr>
     {% for chat in chat_list %}
     <tr>
-      <!-- OBSERVAÇÃO: Mudar chamada da primeira URL -->
-      <td><a href="index.php?page=MensagemView&id={{ chat.id_mensagem }}"><img
-            class="display-img" src="assets/images/email.png" alt="ver" title="Exibir mensagem"></a></td>
+      <td><a href="index.php?page=MensagemView&id={{ chat.id_mensagem }}"><img class="display-img"
+            src="assets/images/email.png" alt="ver" title="Exibir mensagem"></a></td>
       <td>{{ chat.nome }}</td>
-      <td><a
-          href="index.php?page=MensagemView&id={{ chat.id_mensagem }}">{{ chat.assunto }}</a>
+      <td><a href="index.php?page=MensagemView&id={{ chat.id_mensagem }}">{{ chat.assunto }}</a>
       </td>
       <td>{{ chat.status }}</td>
       <td>{{ chat.date_send }}</td>
