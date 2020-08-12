@@ -10,7 +10,7 @@
  * Também está disponível na Internet neste URL:
  * https://opensource.org/licenses/MIT
  *
- * @author Robson Natanael <contato@robsonnatanael.com.br>
+ * @author Robson Natanael <natanaelrobson@gmail.com>
  * @copyright 2020 - RN Comunicação & Marketing
  * @license MIT
  *
@@ -20,7 +20,7 @@
 use app\model\Chat;
 use app\model\Fornecedor;
 use app\model\Mail;
-use app\model\Mensagem;
+use app\model\Message;
 use app\model\User;
 use RNFactory\Database\Transaction;
 
@@ -34,7 +34,7 @@ try {
         $user = new User;
         $user->id = $fornecedor->id_usuario;
 
-        $message = new Mensagem;
+        $message = new Message;
         $message->chat = $chat;
         $message->usuario = $user;
         $message->mensagem = $_POST['message'];

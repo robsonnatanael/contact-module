@@ -2,27 +2,27 @@
 
 /**
  * 2020 - RN Comunicação & Marketing
- * 
+ *
  * * AVISO DE LICENÇA
- * 
+ *
  * Este arquivo de origem está sujeito à Licença ...
  * incluído neste pacote no arquivo LICENSE.txt.
  * Também está disponível na Internet neste URL:
  * https://opensource.org/licenses/MIT
- * 
- * @author Robson Natanael <contato@robsonnatanael.com.br>
+ *
+ * @author Robson Natanael <natanaelrobson@gmail.com>
  * @copyright 2020 - RN Comunicação & Marketing
  * @license MIT
- * 
+ *
  * @package Contact Module
  */
 
 namespace app\model;
 
-use RNFactory\Database\Transaction;
 use PDO;
+use RNFactory\Database\Transaction;
 
-class Mensagem
+class Message
 {
     private $data;
 

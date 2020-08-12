@@ -10,7 +10,7 @@
  * Também está disponível na Internet neste URL:
  * https://opensource.org/licenses/MIT
  *
- * @author Robson Natanael <contato@robsonnatanael.com.br>
+ * @author Robson Natanael <natanaelrobson@gmail.com>
  * @copyright 2020 - RN Comunicação & Marketing
  * @license MIT
  *
@@ -18,13 +18,13 @@
  */
 
 use app\model\Chat;
-use app\model\Mensagem;
+use app\model\Message;
 use app\model\User;
 use RNFactory\Database\Transaction;
 
 Transaction::open('database');
 
-$mensagens = Mensagem::all('id_chat = ' . $_GET['id']);
+$mensagens = Message::all('id_chat = ' . $_GET['id']);
 
 $msg = array();
 $msg['id_chat'] = $_GET['id'];

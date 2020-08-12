@@ -10,7 +10,7 @@
  * Também está disponível na Internet neste URL:
  * https://opensource.org/licenses/MIT
  *
- * @author Robson Natanael <contato@robsonnatanael.com.br>
+ * @author Robson Natanael <natanaelrobson@gmail.com>
  * @copyright 2020 - RN Comunicação & Marketing
  * @license MIT
  *
@@ -18,7 +18,7 @@
  */
 
 use app\model\Chat;
-use app\model\Mensagem;
+use app\model\Message;
 use app\model\User;
 use RNFactory\Database\Transaction;
 
@@ -29,7 +29,7 @@ $chat_list = array();
 
 foreach ($chat as $chats) {
     $usuario = User::find($chats->id_usuario);
-    $mensagem = Mensagem::find($chats->id);
+    $mensagem = Message::find($chats->id);
 
     $chat_list[$chats->id]['id'] = $chats->id;
     $chat_list[$chats->id]['nome'] = $usuario->nome;

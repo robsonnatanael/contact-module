@@ -10,7 +10,7 @@
  * Também está disponível na Internet neste URL:
  * https://opensource.org/licenses/MIT
  *
- * @author Robson Natanael <contato@robsonnatanael.com.br>
+ * @author Robson Natanael <natanaelrobson@gmail.com>
  * @copyright 2020 - RN Comunicação & Marketing
  * @license MIT
  *
@@ -20,7 +20,7 @@
 use app\model\Chat;
 use app\model\Fornecedor;
 use app\model\Mail;
-use app\model\Mensagem;
+use app\model\Message;
 use app\model\User;
 use RNFactory\Controller\ReCaptcha;
 use RNFactory\Database\Transaction;
@@ -50,7 +50,7 @@ try {
         }
 
         if (strlen($_POST['mensagem']) > 0) {
-            $mensagem = new Mensagem;
+            $mensagem = new Message;
             $mensagem->mensagem = $_POST['mensagem'];
             $obrigatorio['message'] = $_POST['mensagem'];
         } else {
