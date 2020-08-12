@@ -2,28 +2,28 @@
 
 /**
  * 2020 - RN Comunicação & Marketing
- * 
+ *
  * * AVISO DE LICENÇA
- * 
+ *
  * Este arquivo de origem está sujeito à Licença ...
  * incluído neste pacote no arquivo LICENSE.txt.
  * Também está disponível na Internet neste URL:
  * https://opensource.org/licenses/MIT
- * 
+ *
  * @author Robson Natanael <contato@robsonnatanael.com.br>
  * @copyright 2020 - RN Comunicação & Marketing
  * @license MIT
- * 
+ *
  * @package Contact Module
  */
 
-use RNFactory\Database\Transaction;
-use RNFactory\Controller\ReCaptcha;
 use app\model\Chat;
+use app\model\Fornecedor;
 use app\model\Mail;
 use app\model\Mensagem;
-use app\model\Usuario;
-use app\model\Fornecedor;
+use app\model\User;
+use RNFactory\Controller\ReCaptcha;
+use RNFactory\Database\Transaction;
 
 try {
 
@@ -32,31 +32,31 @@ try {
         $obrigatorio = array();
         $fornecedor = 1; // Criar regra de negócio para fornecedor
 
-        $usuario                = new Usuario;
+        $usuario = new User;
         if (strlen($_POST['name']) > 0) {
-            $usuario->nome          = $_POST['name'];
-            $obrigatorio['name']    = $_POST['name'];
+            $usuario->nome = $_POST['name'];
+            $obrigatorio['name'] = $_POST['name'];
         } else {
             $validacao = false;
-            $obrigatorio['erro_name']    = "O campo nome é obrigatório";
-        };
+            $obrigatorio['erro_name'] = "O campo nome é obrigatório";
+        }
 
         if (strlen($_POST['email']) > 0) {
-            $usuario->email         = $_POST['email'];
-            $obrigatorio['email']   = $_POST['email'];
+            $usuario->email = $_POST['email'];
+            $obrigatorio['email'] = $_POST['email'];
         } else {
             $validacao = false;
-            $obrigatorio['erro_email']    = "O campo e-mail é obrigatório";
-        };
+            $obrigatorio['erro_email'] = "O campo e-mail é obrigatório";
+        }
 
         if (strlen($_POST['mensagem']) > 0) {
-            $mensagem               = new Mensagem;
-            $mensagem->mensagem     = $_POST['mensagem'];
+            $mensagem = new Mensagem;
+            $mensagem->mensagem = $_POST['mensagem'];
             $obrigatorio['message'] = $_POST['mensagem'];
         } else {
             $validacao = false;
-            $obrigatorio['erro_message']    = "Mensagem obrigatória";
-        };
+            $obrigatorio['erro_message'] = "Mensagem obrigatória";
+        }
 
         $validacao = ReCaptcha::reCAPTCHA();
 
@@ -71,22 +71,22 @@ try {
                 $usuario->id = $usuario->getLastId();
             }
 
-            $chat                   = new Chat;
-            $chat->id_usuario       = $usuario->id;
-            $chat->id_fornecedor    = $fornecedor;
-            $chat->assunto          = $_POST['assunto'];
-            $chat->status           = "Pendente"; // Enquanto não houver regra de negócio
+            $chat = new Chat;
+            $chat->id_usuario = $usuario->id;
+            $chat->id_fornecedor = $fornecedor;
+            $chat->assunto = $_POST['assunto'];
+            $chat->status = "Pendente"; // Enquanto não houver regra de negócio
             $chat->save();
 
             $chat->id = $chat->getLastId();
 
-            $mensagem->chat         = $chat;
-            $mensagem->usuario      = $usuario;
-            $mensagem->date_send    = date('Y-m-d');
+            $mensagem->chat = $chat;
+            $mensagem->usuario = $usuario;
+            $mensagem->date_send = date('Y-m-d');
             $mensagem->save();
 
             $fornecedor = Fornecedor::find($fornecedor);
-            $usuario2 = Usuario::find($fornecedor->id_usuario);
+            $usuario2 = User::find($fornecedor->id_usuario);
 
             Transaction::close();
 
@@ -96,7 +96,7 @@ try {
 
             echo "<script>alert('Mensagem enviada com sucesso!');</script>";
         }
-    };
+    }
 
     require_once 'app/config/config.php';
     $obrigatorio['recaptcha'] = SITE_KEY;

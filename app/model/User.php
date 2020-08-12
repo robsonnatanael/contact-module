@@ -22,7 +22,7 @@ namespace app\model;
 use RNFactory\Database\Transaction;
 use PDO;
 
-class Usuario
+class User
 {
     private static $conn;
     private $data;

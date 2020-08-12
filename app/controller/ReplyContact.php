@@ -2,27 +2,27 @@
 
 /**
  * 2020 - RN Comunicação & Marketing
- * 
+ *
  * * AVISO DE LICENÇA
- * 
+ *
  * Este arquivo de origem está sujeito à Licença ...
  * incluído neste pacote no arquivo LICENSE.txt.
  * Também está disponível na Internet neste URL:
  * https://opensource.org/licenses/MIT
- * 
+ *
  * @author Robson Natanael <contato@robsonnatanael.com.br>
  * @copyright 2020 - RN Comunicação & Marketing
  * @license MIT
- * 
+ *
  * @package Contact Module
  */
 
-use RNFactory\Database\Transaction;
 use app\model\Chat;
-use app\model\Mensagem;
-use app\model\Usuario;
-use app\model\Mail;
 use app\model\Fornecedor;
+use app\model\Mail;
+use app\model\Mensagem;
+use app\model\User;
+use RNFactory\Database\Transaction;
 
 try {
 
@@ -31,18 +31,18 @@ try {
         Transaction::open('database');
         $chat = Chat::find($_POST['id-chat']);
         $fornecedor = Fornecedor::find($chat->id_fornecedor);
-        $user = new Usuario;
+        $user = new User;
         $user->id = $fornecedor->id_usuario;
 
         $message = new Mensagem;
-        $message->chat          = $chat;
-        $message->usuario       = $user;
-        $message->mensagem      = $_POST['message'];
-        $message->date_send     = date('Y-m-d');
+        $message->chat = $chat;
+        $message->usuario = $user;
+        $message->mensagem = $_POST['message'];
+        $message->date_send = date('Y-m-d');
 
         $message->save();
 
-        $user = Usuario::find($chat->id_usuario);
+        $user = User::find($chat->id_usuario);
         Transaction::close();
 
         $user_name = $user->nome;
