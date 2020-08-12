@@ -2,18 +2,18 @@
 
 /**
  * 2020 - RN Comunicação & Marketing
- * 
+ *
  * * AVISO DE LICENÇA
- * 
+ *
  * Este arquivo de origem está sujeito à Licença ...
  * incluído neste pacote no arquivo LICENSE.txt.
  * Também está disponível na Internet neste URL:
  * https://opensource.org/licenses/MIT
- * 
+ *
  * @author Robson Natanael <natanaelrobson@gmail.com>
  * @copyright 2020 - RN Comunicação & Marketing
- * @license MIT 
- * 
+ * @license MIT
+ *
  * @package Contact Module
  */
 
