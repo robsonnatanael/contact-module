@@ -18,9 +18,9 @@
  */
 
 use app\model\Chat;
-use app\model\Fornecedor;
 use app\model\Mail;
 use app\model\Message;
+use app\model\Supplier;
 use app\model\User;
 use RNFactory\Database\Transaction;
 
@@ -30,7 +30,7 @@ try {
 
         Transaction::open('database');
         $chat = Chat::find($_POST['id-chat']);
-        $fornecedor = Fornecedor::find($chat->id_fornecedor);
+        $fornecedor = Supplier::find($chat->id_fornecedor);
         $user = new User;
         $user->id = $fornecedor->id_usuario;
 

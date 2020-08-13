@@ -18,9 +18,9 @@
  */
 
 use app\model\Chat;
-use app\model\Fornecedor;
 use app\model\Mail;
 use app\model\Message;
+use app\model\Supplier;
 use app\model\User;
 use RNFactory\Controller\ReCaptcha;
 use RNFactory\Database\Transaction;
@@ -85,7 +85,7 @@ try {
             $mensagem->date_send = date('Y-m-d');
             $mensagem->save();
 
-            $fornecedor = Fornecedor::find($fornecedor);
+            $fornecedor = Supplier::find($fornecedor);
             $usuario2 = User::find($fornecedor->id_usuario);
 
             Transaction::close();
