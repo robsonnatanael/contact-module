@@ -50,7 +50,7 @@ try {
 
         Mail::sendMail($user_mail, $user_name);
     }
-    header('Location: index.php?page=MensagemView&id=' . $_POST['id-chat'] . '');
+    header('Location: index.php?page=MessageView&id=' . $_POST['id-chat'] . '');
 } catch (Exception $e) {
     Transaction::rollback();
     print $e->getMessage();

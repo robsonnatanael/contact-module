@@ -10,10 +10,10 @@
     </tr>
     {% for chat in chat_list %}
     <tr>
-      <td><a href="index.php?page=MensagemView&id={{ chat.id_message }}"><img class="display-img"
+      <td><a href="index.php?page=MessageView&id={{ chat.id_message }}"><img class="display-img"
             src="assets/images/email.png" alt="ver" title="Exibir mensagem"></a></td>
       <td>{{ chat.name }}</td>
-      <td><a href="index.php?page=MensagemView&id={{ chat.id_message }}">{{ chat.subject }}</a>
+      <td><a href="index.php?page=MessageView&id={{ chat.id_message }}">{{ chat.subject }}</a>
       </td>
       <td>{{ chat.status }}</td>
       <td>{{ chat.date_send }}</td>

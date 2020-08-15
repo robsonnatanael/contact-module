@@ -44,7 +44,7 @@ Transaction::close();
 $loader = new \Twig\Loader\FilesystemLoader('app/view');
 $twig = new \Twig\Environment($loader);
 
-$template = $twig->load('mensagens.html');
+$template = $twig->load('messages.html');
 
 $parameters = array();
 $parameters['chat_list'] = $chat_list;

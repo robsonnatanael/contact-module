@@ -99,14 +99,14 @@ try {
     }
 
     require_once 'app/config/config.php';
-    $obrigatorio['recaptcha'] = SITE_KEY;
+    $required['recaptcha'] = SITE_KEY;
 
     $loader = new \Twig\Loader\FilesystemLoader('app/view');
     $twig = new \Twig\Environment($loader);
 
-    $template = $twig->load('formulario-contato.html');
+    $template = $twig->load('form-contact.html');
 
-    $parameters = $obrigatorio;
+    $parameters = $required;
 
     echo $template->render($parameters);
 

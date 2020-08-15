@@ -48,7 +48,7 @@ $msg['chat'] = $chat_view;
 $loader = new \Twig\Loader\FilesystemLoader('app/view');
 $twig = new \Twig\Environment($loader);
 
-$template = $twig->load('mensagem-view.html');
+$template = $twig->load('message-view.html');
 
 $parameters = $msg;
 
