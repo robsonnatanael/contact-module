@@ -24,23 +24,22 @@ use RNFactory\Database\Transaction;
 
 Transaction::open('database');
 
-$mensagens = Message::all('id_chat = ' . $_GET['id']);
-
+$messages = Message::all('id_chat = ' . $_GET['id']);
 $msg = array();
 $msg['id_chat'] = $_GET['id'];
 
 $chat = Chat::find($_GET['id']);
-$msg['assunto'] = $chat->assunto;
+
+$msg['subject'] = $chat->subject;
 
 $chat_view = array();
-foreach ($mensagens as $mensagem) {
+foreach ($messages as $message) {
 
-    $usuario = User::find($mensagem->id_usuario);
-
-    $chat_view[$mensagem->id]['id_usuario'] = $usuario->id;
-    $chat_view[$mensagem->id]['usuario'] = $usuario->nome;
-    $chat_view[$mensagem->id]['mensagem'] = $mensagem->mensagem;
-    $chat_view[$mensagem->id]['date_send'] = $mensagem->date_send;
+    $user = User::find($message->id_user);
+    $chat_view[$message->id]['id_user']      = $user->id;
+    $chat_view[$message->id]['user']         = $user->name;
+    $chat_view[$message->id]['message']      = $message->message;
+    $chat_view[$message->id]['date_send']    = $message->date_send;
 }
 
 Transaction::close();
@@ -51,6 +50,6 @@ $twig = new \Twig\Environment($loader);
 
 $template = $twig->load('mensagem-view.html');
 
-$parametros = $msg;
+$parameters = $msg;
 
-echo $template->render($parametros);
+echo $template->render($parameters);

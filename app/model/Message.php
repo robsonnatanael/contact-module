@@ -38,37 +38,39 @@ class Message
 
     public static function find($id)
     {
-        $sql = "SELECT * FROM mensagens WHERE id = '$id' ";
+        $sql = "SELECT * FROM messages WHERE id = $id";
         $conn = Transaction::get();
         $result = $conn->query($sql);
+
         return $result->fetchObject(__CLASS__);
     }
 
     public static function all($filter = '')
     {
-        $sql = "SELECT * FROM mensagens ";
+        $sql = "SELECT * FROM messages ";
         if ($filter) {
             $sql .= "where $filter";
         }
         $conn = Transaction::get();
         $result = $conn->query($sql);
+
         return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
     }
 
     public function save()
     {
         if (empty($this->data['id'])) {
-            $sql = "INSERT INTO mensagens (id_chat, id_usuario, id_fornecedor, mensagem, date_send)" .
+            $sql = "INSERT INTO messages (id_chat, id_user, id_supplier, message, date_send)" .
                 " VALUES ('{$this->chat->id}', " .
-                " '{$this->usuario->id}', " .
-                " '{$this->chat->id_fornecedor}', " .
-                " '{$this->mensagem}', " .
+                " '{$this->user->id}', " .
+                " '{$this->chat->id_supplier}', " .
+                " '{$this->message}', " .
                 " '{$this->date_send}')";
         } else {
-            $sql = "UPDATE mensagens SET id_chat        = '{$this->chat->id}', " .
-                "id_usuario     = '{$this->usuario->id}', " .
-                "id_fornecedor  = '{$this->chat->id_fornecedor}', " .
-                "mensagem       = '{$this->mensagem}', " .
+            $sql = "UPDATE messages SET id_chat        = '{$this->chat->id}', " .
+                "id_user        = '{$this->user->id}', " .
+                "id_supplier    = '{$this->chat->id_supplier}', " .
+                "mesage         = '{$this->message}', " .
                 "date_send      = '{$this->date_send}', " .
                 " WHERE id      = '{$this->id}'";
         }

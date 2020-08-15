@@ -1,15 +1,17 @@
 <section class="msg">
   <h1 class="text-center">Atendimento ao Cliente</h1>
 
-  <p><strong>Assunto: {{ assunto }}</strong></p>
-  {% for conteudo in chat %}
-  <p>{{ conteudo.usuario }}</p>
+  <p><strong>Assunto: {{ subject }}</strong></p>
+
+  {% for content in chat %}
+  <p>{{ content.user }}</p>
   <div class="message-body">
-    <p><img src="assets/images/calendar.png" alt="calendário"> {{ conteudo.date_send }}</p>
-    <p>{{ conteudo.mensagem }}</p>
+    <p><img src="assets/images/calendar.png" alt="calendário"> {{ content.date_send }}</p>
+    <p>{{ content.message }}</p>
   </div>
   <hr>
   {% endfor %}
+
 </section>
 
 <section class="msg">
@@ -28,9 +30,11 @@
 <section class="msg">
   <h4 class="text-center">Linha do tempo de mensagens</h4>
   <br>
-  {% for conteudo in chat %}
-  <img src="assets/images/calendar.png" alt="calendário"> {{ conteudo.date_send }}
-  <strong>{{ conteudo.usuario }}</strong><br>
-  {{ conteudo.mensagem }}<br><br>
+
+  {% for content in chat %}
+  <img src="assets/images/calendar.png" alt="calendário"> {{ content.date_send }}
+  <strong>{{ content.user }}</strong><br>
+  {{ content.message }}<br><br>
   {% endfor %}
+
 </section>

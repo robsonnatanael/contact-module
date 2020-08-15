@@ -28,70 +28,70 @@ use RNFactory\Database\Transaction;
 try {
 
     if (count($_POST) > 0) {
-        $validacao = true;
-        $obrigatorio = array();
-        $fornecedor = 1; // Criar regra de negócio para fornecedor
+        $validation = true;
+        $required = array();
+        $supplier = 1; // Criar regra de negócio para fornecedor
 
-        $usuario = new User;
+        $user = new User;
         if (strlen($_POST['name']) > 0) {
-            $usuario->nome = $_POST['name'];
-            $obrigatorio['name'] = $_POST['name'];
+            $user->name = $_POST['name'];
+            $required['name'] = $_POST['name'];
         } else {
-            $validacao = false;
-            $obrigatorio['erro_name'] = "O campo nome é obrigatório";
+            $validation = false;
+            $required['erro_name'] = "O campo nome é obrigatório";
         }
 
         if (strlen($_POST['email']) > 0) {
-            $usuario->email = $_POST['email'];
-            $obrigatorio['email'] = $_POST['email'];
+            $user->email = $_POST['email'];
+            $required['email'] = $_POST['email'];
         } else {
-            $validacao = false;
-            $obrigatorio['erro_email'] = "O campo e-mail é obrigatório";
+            $validation = false;
+            $required['erro_email'] = "O campo e-mail é obrigatório";
         }
 
-        if (strlen($_POST['mensagem']) > 0) {
-            $mensagem = new Message;
-            $mensagem->mensagem = $_POST['mensagem'];
-            $obrigatorio['message'] = $_POST['mensagem'];
+        if (strlen($_POST['message']) > 0) {
+            $message = new Message;
+            $message->message = $_POST['message'];
+            $required['message'] = $_POST['message'];
         } else {
-            $validacao = false;
-            $obrigatorio['erro_message'] = "Mensagem obrigatória";
+            $validation = false;
+            $required['erro_message'] = "Mensagem obrigatória";
         }
 
-        $validacao = ReCaptcha::reCAPTCHA();
+        $validation = ReCaptcha::reCAPTCHA();
 
-        if ($validacao) {
-            $usuario->fone = $_POST['fone'];
+        if ($validation) {
+            $user->phone = $_POST['phone'];
             Transaction::open('database');
-            $usuario->id = $usuario->getIdUser($_POST['email']);
+            $user->id = $user->getIdUser($_POST['email']);
 
-            $usuario->save();
+            $user->save();
 
-            if ($usuario->id == 0) {
-                $usuario->id = $usuario->getLastId();
+            if ($user->id == 0) {
+                $user->id = $user->getLastId();
             }
 
             $chat = new Chat;
-            $chat->id_usuario = $usuario->id;
-            $chat->id_fornecedor = $fornecedor;
-            $chat->assunto = $_POST['assunto'];
+            $chat->id_user = $user->id;
+            $chat->id_supplier = $supplier;
+            $chat->subject = $_POST['subject'];
             $chat->status = "Pendente"; // Enquanto não houver regra de negócio
             $chat->save();
 
             $chat->id = $chat->getLastId();
 
-            $mensagem->chat = $chat;
-            $mensagem->usuario = $usuario;
-            $mensagem->date_send = date('Y-m-d');
-            $mensagem->save();
+            $message->chat = $chat;
+            $message->user = $user;
+            $message->date_send = date('Y-m-d');
+            $message->save();
 
-            $fornecedor = Supplier::find($fornecedor);
-            $usuario2 = User::find($fornecedor->id_usuario);
+            $supplier = Supplier::find($supplier);
+            $user2 = User::find($supplier->id_user);
 
             Transaction::close();
 
-            $user_mail = $usuario2->email;
-            $user_name = $usuario2->nome;
+            $user_mail = $user2->email;
+            $user_name = $user2->name;
             Mail::sendMail($user_mail, $user_name);
 
             echo "<script>alert('Mensagem enviada com sucesso!');</script>";
@@ -106,9 +106,10 @@ try {
 
     $template = $twig->load('formulario-contato.html');
 
-    $parametros = $obrigatorio;
+    $parameters = $obrigatorio;
 
-    echo $template->render($parametros);
+    echo $template->render($parameters);
+
 } catch (Exception $e) {
     Transaction::rollback();
     print $e->getMessage();

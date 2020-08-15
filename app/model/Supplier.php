@@ -38,7 +38,7 @@ class Supplier
 
     public static function find($id)
     {
-        $sql = "SELECT * FROM fornecedores WHERE id = '$id' ";
+        $sql = "SELECT * FROM suppliers WHERE id = '$id' ";
         $conn = Transaction::get();
         $result = $conn->query($sql);
         return $result->fetchObject(__CLASS__);

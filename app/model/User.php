@@ -39,7 +39,7 @@ class User
 
     public function getIdUser($email)
     {
-        $sql = "SELECT id FROM usuarios WHERE email = '$email'";
+        $sql = "SELECT id FROM users WHERE email = '$email'";
         $conn = Transaction::get();
         $result = $conn->query($sql);
         $data = $result->fetch(PDO::FETCH_OBJ);
@@ -50,7 +50,7 @@ class User
 
     public static function find($id)
     {
-        $sql = "SELECT * FROM usuarios WHERE id = '$id' ";
+        $sql = "SELECT * FROM users WHERE id = '$id' ";
         $conn = Transaction::get();
         $result = $conn->query($sql);
         return $result->fetchObject(__CLASS__);
@@ -59,14 +59,14 @@ class User
     public function save()
     {
         if (empty($this->data['id'])) {
-            $sql = "INSERT INTO usuarios (nome, email, fone) " .
-                " VALUES ('{$this->nome}', " .
+            $sql = "INSERT INTO users (name, email, phone) " .
+                " VALUES ('{$this->name}', " .
                 "     '{$this->email}', " .
-                "     '{$this->fone}')";
+                "     '{$this->phone}')";
         } else {
-            $sql = "UPDATE usuarios SET nome    = '{$this->nome}', " .
+            $sql = "UPDATE users SET name    = '{$this->name}', " .
                 "   email   = '{$this->email}', " .
-                "   fone    = '{$this->fone}' " .
+                "   phone   = '{$this->phone}' " .
                 " WHERE id  = '{$this->id}'";
         }
         $conn = Transaction::get();
@@ -75,7 +75,7 @@ class User
 
     public function getLastId()
     {
-        $sql = "SELECT max(id) as max FROM usuarios";
+        $sql = "SELECT max(id) as max FROM users";
         $conn = Transaction::get();
         $result = $conn->query($sql);
         $data = $result->fetch(PDO::FETCH_OBJ);

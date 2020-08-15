@@ -30,22 +30,22 @@ try {
 
         Transaction::open('database');
         $chat = Chat::find($_POST['id-chat']);
-        $fornecedor = Supplier::find($chat->id_fornecedor);
+        $supplier = Supplier::find($chat->id_supplier);
         $user = new User;
-        $user->id = $fornecedor->id_usuario;
+        $user->id = $supplier->id_user;
 
         $message = new Message;
         $message->chat = $chat;
-        $message->usuario = $user;
-        $message->mensagem = $_POST['message'];
+        $message->user = $user;
+        $message->message = $_POST['message'];
         $message->date_send = date('Y-m-d');
 
         $message->save();
 
-        $user = User::find($chat->id_usuario);
+        $user = User::find($chat->id_user);
         Transaction::close();
 
-        $user_name = $user->nome;
+        $user_name = $user->name;
         $user_mail = $user->email;
 
         Mail::sendMail($user_mail, $user_name);
