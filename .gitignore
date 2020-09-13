@@ -1,2 +1,5 @@
 .vscode
 vendor/*
+*/cache/*
+app/config/config.php
+app/database/database.ini

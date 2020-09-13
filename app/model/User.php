@@ -27,14 +27,14 @@ class User
     private static $conn;
     private $data;
 
-    public function __set($propriedade, $value)
+    public function __set($property, $value)
     {
-        $this->data[$propriedade] = $value;
+        $this->data[$property] = $value;
     }
 
-    public function __get($propriedade)
+    public function __get($property)
     {
-        return $this->data[$propriedade];
+        return $this->data[$property];
     }
 
     public function getIdUser($email)

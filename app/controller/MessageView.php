@@ -3,7 +3,7 @@
 /**
  * 2020 - RN Comunicação & Marketing
  *
- * * AVISO DE LICENÇA
+ * AVISO DE LICENÇA
  *
  * Este arquivo de origem está sujeito à Licença ...
  * incluído neste pacote no arquivo LICENSE.txt.

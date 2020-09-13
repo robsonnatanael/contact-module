@@ -17,6 +17,8 @@
  * @package Contact Module
  */
 
+session_start();
+
 require_once "vendor/autoload.php";
 
 // lê o conteúdo do template e armazena em uma variável
@@ -37,9 +39,9 @@ if (is_file("app/controller/{$page}.php")) {
     echo "Página não encontrada!";
 }
 
-$saida = ob_get_contents(); // retorna o conteúdo do buffer de saída
+$loader = ob_get_contents(); // retorna o conteúdo do buffer de saída
 ob_end_clean(); // Limpa (apaga) o buffer de saída e desativa o buffer de saída
 
-$templatePronto = str_replace('{{ area_dinamica }}', $saida, $structure);
+$template = str_replace('{{ dynamic_area }}', $loader, $structure);
 
-echo $templatePronto;
+echo $template;

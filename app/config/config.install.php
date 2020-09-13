@@ -18,20 +18,20 @@
  */
 
 // URI Base
-define("URI", "X-X-X");
+define("URI", "htpps://example.com");
 
 // Configuração SMTP
-define("HOST", "X-X-X");
+define("HOST", "smtp.example.com");
 define("PORT", 587);
 define("SECURITY", "tls");
 define("SMTP_AUTH", true);
-define("USERNAME", "X-X-X");
-define("PASSWORD", "X-X-X");
-define("NAME", "X-X-X");
+define("USERNAME", "user@example.com");
+define("PASSWORD", "secret");
+define("NAME", "Name");
 
 // E-mail para notificação
-define("EMAIL_NOTIFICACAO", "X-X-X");
+define("EMAIL_NOTIFICACAO", "user@example.com");
 
 // Chaves de reCAPTCHA
-define("SITE_KEY", "X-X-X");
-define("SECRET_KEY", "X-X-X");
+define("SITE_KEY", "key");
+define("SECRET_KEY", "secret");
