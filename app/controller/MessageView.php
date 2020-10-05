@@ -17,39 +17,49 @@
  * @package Contact Module
  */
 
+namespace app\controller;
+
 use app\model\Chat;
 use app\model\Message;
 use app\model\User;
 use RNFactory\Database\Transaction;
 
-Transaction::open('database');
+class MessageView
+{
+    public static function view()
+    {
 
-$messages = Message::all('id_chat = ' . $_GET['id']);
-$msg = array();
-$msg['id_chat'] = $_GET['id'];
+        Transaction::open('database');
 
-$chat = Chat::find($_GET['id']);
+        $messages = Message::all('id_chat = ' . $_GET['param']);
+        $msg = array();
+        $msg['id_chat'] = $_GET['param'];
 
-$msg['subject'] = $chat->subject;
+        $chat = Chat::find($_GET['param']);
 
-$chat_view = array();
-foreach ($messages as $message) {
+        $msg['subject'] = $chat->subject;
 
-    $user = User::find($message->id_user);
-    $chat_view[$message->id]['id_user']      = $user->id;
-    $chat_view[$message->id]['user']         = $user->name;
-    $chat_view[$message->id]['message']      = $message->message;
-    $chat_view[$message->id]['date_send']    = $message->date_send;
+        $chat_view = array();
+        foreach ($messages as $message) {
+
+            $user = User::find($message->id_user);
+            $chat_view[$message->id]['id_user'] = $user->id;
+            $chat_view[$message->id]['user'] = $user->name;
+            $chat_view[$message->id]['message'] = $message->message;
+            $chat_view[$message->id]['date_send'] = $message->date_send;
+        }
+
+        Transaction::close();
+        $msg['chat'] = $chat_view;
+
+        $loader = new \Twig\Loader\FilesystemLoader('app/view');
+        $twig = new \Twig\Environment($loader);
+
+        $template = $twig->load('message-view.html');
+
+        $parameters = $msg;
+
+        echo $template->render($parameters);
+
+    }
 }
-
-Transaction::close();
-$msg['chat'] = $chat_view;
-
-$loader = new \Twig\Loader\FilesystemLoader('app/view');
-$twig = new \Twig\Environment($loader);
-
-$template = $twig->load('message-view.html');
-
-$parameters = $msg;
-
-echo $template->render($parameters);

@@ -17,14 +17,13 @@
  * @package Contact Module
  */
 
+namespace app\controller;
+
 class Login
 {
-    public $url;
 
-    public function authentication()
+    public static function authentication()
     {
-        echo 'Método authentication em execurção!';
-
         $loader = new \Twig\Loader\FilesystemLoader('app/view');
         $twig = new \Twig\Environment($loader, [
             'cache' => '/app/cache',
@@ -36,7 +35,4 @@ class Login
         echo $template->render();
 
     }
-
 }
-
-echo 'Teste';

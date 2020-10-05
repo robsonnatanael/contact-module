@@ -5,11 +5,16 @@
 
 body {
     background-color: #F2F2F2;
-    margin: 0;    
+    margin: 0;
 }
 
 .text-center {
     text-align: center;
+}
+
+.container {
+  max-width:1200px;
+  margin: auto;
 }
 
 /* Header
@@ -66,7 +71,7 @@ header .logo a {
     margin-top: 30px;
     padding: 20px;
     background-color: #FFF;
-    border-radius: 15px;    
+    border-radius: 15px;
 }
 
 fieldset {
@@ -126,7 +131,7 @@ footer p a {
     margin-top: 30px;
     padding: 20px;
     background-color: #FFF;
-    border-radius: 15px;    
+    border-radius: 15px;
 }
 
 
