@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Tempo de geração: 13-Ago-2020 às 00:50
--- Versão do servidor: 8.0.18
--- versão do PHP: 7.3.12
+-- Generation Time: Oct 12, 2020 at 01:56 PM
+-- Server version: 8.0.18
+-- PHP Version: 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `portfolio_contact_module`
+-- Database: `portfolio_contact_module`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `chat`
+-- Table structure for table `chat`
 --
 
 DROP TABLE IF EXISTS `chat`;
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `chat` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `messages`
+-- Table structure for table `messages`
 --
 
 DROP TABLE IF EXISTS `messages`;
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `suppliers`
+-- Table structure for table `suppliers`
 --
 
 DROP TABLE IF EXISTS `suppliers`;
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `suppliers` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `users`
+-- Table structure for table `users`
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -80,6 +80,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `email` varchar(250) NOT NULL,
+  `password` varchar(15) NOT NULL,
   `phone` varchar(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
