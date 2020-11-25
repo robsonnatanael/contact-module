@@ -3,16 +3,16 @@
 /**
  * 2020 - RN Comunicação & Marketing
  *
- * * AVISO DE LICENÇA
+ * AVISO DE LICENÇA
  *
- * Este arquivo de origem está sujeito à Licença ...
+ * Este arquivo de origem está sujeito à Licença MIT
  * incluído neste pacote no arquivo LICENSE.txt.
  * Também está disponível na Internet neste URL:
  * https://opensource.org/licenses/MIT
  *
  * @author Robson Natanael <natanaelrobson@gmail.com>
  * @copyright 2020 - RN Comunicação & Marketing
- * @license MIT
+ * @license https://opensource.org/licenses/MIT MIT License
  *
  * @package Contact Module
  */
@@ -80,5 +80,24 @@ class User
         $result = $conn->query($sql);
         $data = $result->fetch(PDO::FETCH_OBJ);
         return $data->max;
+    }
+
+    public function validateLogin()
+    {
+        $sql = "SELECT * FROM users WHERE email = '$this->email'";
+        $conn = Transaction::get();
+        $result = $conn->query($sql);
+        $data = $result->fetch(PDO::FETCH_OBJ);
+
+        if (!empty($data) && $data->password == $this->password) {
+
+            $_SESSION['logged'] = true;
+            $_SESSION['id-user'] = $data->id;
+            $_SESSION['name'] = $data->name;
+
+            return true;
+        }
+
+        throw new \Exception('Login invalido!');
     }
 }

@@ -5,14 +5,14 @@
  *
  * AVISO DE LICENÇA
  *
- * Este arquivo de origem está sujeito à Licença ...
+ * Este arquivo de origem está sujeito à Licença MIT
  * incluído neste pacote no arquivo LICENSE.txt.
  * Também está disponível na Internet neste URL:
  * https://opensource.org/licenses/MIT
  *
  * @author Robson Natanael <natanaelrobson@gmail.com>
  * @copyright 2020 - RN Comunicação & Marketing
- * @license MIT
+ * @license https://opensource.org/licenses/MIT MIT License
  *
  * @package Contact Module
  */
@@ -25,6 +25,15 @@ class AppLoader
 {
     private $data;
     private $param = null;
+    private $error;
+
+    public function __construct()
+    {
+        $this->error = $_SESSION['msg-erro'] ?? null;
+        if (isset($this->error)) {
+            unset($_SESSION['msg-error']);
+        }
+    }
 
     public function __set($property, $value)
     {
