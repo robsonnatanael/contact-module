@@ -1,20 +1,16 @@
 <?php
 
 /**
- * 2020 - RN Comunicação & Marketing
- *
  * AVISO DE LICENÇA
  *
- * Este arquivo de origem está sujeito à Licença ...
- * incluído neste pacote no arquivo LICENSE.txt.
- * Também está disponível na Internet neste URL:
- * https://opensource.org/licenses/MIT
+ * Este arquivo de origem está sujeito à Licença MIT
+ * incluído neste pacote no arquivo LICENSE
  *
- * @author Robson Natanael <natanaelrobson@gmail.com>
- * @copyright 2020 - RN Comunicação & Marketing
- * @license MIT
+ * @copyright 2020 - Robson Natanael
+ * @license https://opensource.org/licenses/MIT MIT License
  *
  * @package Contact Module
+ * @author Robson Natanael <natanaelrobson@gmail.com>
  */
 
 namespace app\controller;
@@ -25,6 +21,11 @@ use app\model\Message;
 use app\model\Supplier;
 use app\model\User;
 use RNFactory\Database\Transaction;
+
+if (!defined('RN2020')) {
+    header('Location: /');
+    die('Página não encontrada!');
+}
 
 class ReplyContact
 {
