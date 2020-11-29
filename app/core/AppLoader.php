@@ -1,20 +1,16 @@
 <?php
 
 /**
- * 2020 - RN Comunicação & Marketing
- *
  * AVISO DE LICENÇA
  *
  * Este arquivo de origem está sujeito à Licença MIT
- * incluído neste pacote no arquivo LICENSE.txt.
- * Também está disponível na Internet neste URL:
- * https://opensource.org/licenses/MIT
+ * incluído neste pacote no arquivo LICENSE
  *
- * @author Robson Natanael <natanaelrobson@gmail.com>
- * @copyright 2020 - RN Comunicação & Marketing
+ * @copyright 2020 - Robson Natanael
  * @license https://opensource.org/licenses/MIT MIT License
  *
  * @package Contact Module
+ * @author Robson Natanael <natanaelrobson@gmail.com>
  */
 
 namespace app\core;
@@ -25,15 +21,6 @@ class AppLoader
 {
     private $data;
     private $param = null;
-    private $error;
-
-    public function __construct()
-    {
-        $this->error = $_SESSION['msg-erro'] ?? null;
-        if (isset($this->error)) {
-            unset($_SESSION['msg-error']);
-        }
-    }
 
     public function __set($property, $value)
     {
@@ -52,13 +39,11 @@ class AppLoader
 
                 if (array_key_exists('class', $_GET) && file_exists("app/controller/{$_GET['class']}.php")) {
 
-                    foreach ($url as $key => $url) {
+                    $this->permission($_GET);
+                    $controller = $this->urlController;
+                    $method = $_GET['method'] ?? 'index';
 
-                        $this->$key = $url;
-
-                    }
-
-                    return call_user_func(array("app\\controller\\$this->class", $this->method), $this->param);
+                    return call_user_func(array("app\\controller\\$controller", $method), $this->param);
 
                 } else {
                     throw new Exception('Página não encontrada!');
@@ -72,5 +57,27 @@ class AppLoader
             echo 'Erro 404: ' . $e->getMessage();
         }
 
+    }
+
+    private function permission($url)
+    {
+
+        $this->urlController = $url['class'];
+        $pagePublic = ['ContactForm', 'Login'];
+
+        if (in_array($this->urlController, $pagePublic)) {
+            return $this->urlControlle = $url['class'];
+        }
+
+        $this->validLogin($url);
+    }
+
+    private function validLogin($url)
+    {
+        if (isset($_SESSION['logged'])) {
+            return $this->urlControlle = $url['class'];
+        }
+
+        header('Location: /index.php?class=Login&method=index');
     }
 }
