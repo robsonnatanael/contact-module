@@ -19,6 +19,7 @@ use app\model\Chat;
 use app\model\Message;
 use app\model\User;
 use RNFactory\Database\Transaction;
+use app\core\AppLoader;
 
 if (!defined('RN2020')) {
     header('Location: /');
@@ -53,14 +54,6 @@ class MessageView
         Transaction::close();
         $msg['chat'] = $chat_view;
 
-        $loader = new \Twig\Loader\FilesystemLoader('app/view');
-        $twig = new \Twig\Environment($loader);
-
-        $template = $twig->load('message-view.html');
-
-        $parameters = $msg;
-
-        echo $template->render($parameters);
-
+        AppLoader::load('message-view.html', $msg);
     }
 }

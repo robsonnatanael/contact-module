@@ -15,6 +15,8 @@
 
 namespace app\controller;
 
+use app\core\AppLoader;
+
 if (!defined('RN2020')) {
     header('Location: /');
     die('Página não encontrada!');
@@ -24,17 +26,8 @@ class Dashboard
 {
     public static function index()
     {
-        $loader = new \Twig\Loader\FilesystemLoader('app/view');
-        $twig = new \Twig\Environment($loader, [
-            'cache' => 'app/cache',
-            'auto_reload' => true,
-        ]);
-
-        $template = $twig->load('dashboard.html');
-
         $parameters = array();
-        $parameters['btn'] = 'Sair';
 
-        echo $template->render($parameters);
+        AppLoader::load('dashboard.html', $parameters);
     }
 }

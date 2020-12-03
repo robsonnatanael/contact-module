@@ -1,24 +1,21 @@
 <?php
 
 /**
- * 2020 - RN Comunicação & Marketing
- *
  * AVISO DE LICENÇA
  *
  * Este arquivo de origem está sujeito à Licença MIT
- * incluído neste pacote no arquivo LICENSE.txt.
- * Também está disponível na Internet neste URL:
- * https://opensource.org/licenses/MIT
+ * incluído neste pacote no arquivo LICENSE
  *
- * @author Robson Natanael <natanaelrobson@gmail.com>
- * @copyright 2020 - RN Comunicação & Marketing
+ * @copyright 2020 - Robson Natanael
  * @license https://opensource.org/licenses/MIT MIT License
  *
  * @package Contact Module
+ * @author Robson Natanael <natanaelrobson@gmail.com>
  */
 
 namespace app\controller;
 
+use app\core\AppLoader;
 use app\model\User;
 use RNFactory\Database\Transaction;
 
@@ -27,26 +24,14 @@ class Login
     public static function index()
     {
         if (isset($_SESSION['logged'])) {
-            header('Location: /index.php?class=Dashboard&method=index');
+            header('Location: /index.php?class=Dashboard');
         }
         else {
-            Login::authentication();
+            $parameters = array();
+            $parameters['error'] = $_SESSION['msg-error'] ?? null;
+            unset($_SESSION['msg-error']);
+            AppLoader::load('login.html', $parameters);
         }
-    }
-
-    public static function authentication()
-    {
-        $loader = new \Twig\Loader\FilesystemLoader('app/view');
-        $twig = new \Twig\Environment($loader, [
-            'cache' => 'app/cache',
-            'auto_reload' => true,
-        ]);
-
-        $template = $twig->load('login.html');
-        $parameters['error'] = $_SESSION['msg-error'] ?? null;
-
-        echo $template->render($parameters);
-
     }
 
     public function check()
@@ -60,12 +45,11 @@ class Login
             $user->validateLogin();
 
             Transaction::close();
-            header('Location: /index.php?class=Dashboard&method=index');
-            //header('Location: /index.php?class=MessagesList&method=index');
+            header('Location: /index.php?class=Dashboard');
 
         } catch (\Exception $e) {
             $_SESSION['msg-error'] = $e->getMessage();
-            header('Location: /index.php?class=Login&method=authentication');
+            header('Location: /index.php?class=Login');
         }
     }
 
@@ -75,5 +59,4 @@ class Login
         session_destroy();
         header('Location: /index.php');
     }
-
 }

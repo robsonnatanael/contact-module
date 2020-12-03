@@ -80,4 +80,25 @@ class AppLoader
 
         header('Location: /index.php?class=Login&method=index');
     }
+
+    public static function load($view, $paramTemplate)
+    {
+        $parameters = array();
+        $parameters = $paramTemplate;
+
+        if (isset($_SESSION['id-user'])) {
+            $parameters['id-user'] = $_SESSION['id-user'];
+            $parameters['user'] = $_SESSION['name'];
+        }
+
+        $loader = new \Twig\Loader\FilesystemLoader('app/view');
+        $twig = new \Twig\Environment($loader, [
+            'cache' => 'app/cache',
+            'auto_reload' => true,
+        ]);
+
+        $template = $twig->load($view);
+
+        echo $template->render($parameters);
+    }
 }

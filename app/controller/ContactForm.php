@@ -1,24 +1,21 @@
 <?php
 
 /**
- * 2020 - RN Comunicação & Marketing
- *
  * AVISO DE LICENÇA
  *
- * Este arquivo de origem está sujeito à Licença ...
- * incluído neste pacote no arquivo LICENSE.txt.
- * Também está disponível na Internet neste URL:
- * https://opensource.org/licenses/MIT
+ * Este arquivo de origem está sujeito à Licença MIT
+ * incluído neste pacote no arquivo LICENSE
  *
- * @author Robson Natanael <natanaelrobson@gmail.com>
- * @copyright 2020 - RN Comunicação & Marketing
- * @license MIT
+ * @copyright 2020 - Robson Natanael
+ * @license https://opensource.org/licenses/MIT MIT License
  *
  * @package Contact Module
+ * @author Robson Natanael <natanaelrobson@gmail.com>
  */
 
 namespace app\controller;
 
+use app\core\AppLoader;
 use app\model\Chat;
 use app\model\Mail;
 use app\model\Message;
@@ -29,7 +26,7 @@ use RNFactory\Database\Transaction;
 
 class ContactForm
 {
-    static function index()
+    public static function index()
     {
 
         try {
@@ -101,21 +98,15 @@ class ContactForm
                     $user_name = $user2->name;
                     Mail::sendMail($user_mail, $user_name);
 
-                    echo "<script>alert('Mensagem enviada com sucesso!');</script>";
+                    $required['msg'] = 'Mensagem enviada com sucesso!';
                 }
             }
 
             require_once 'app/config/config.php';
             $required['recaptcha'] = SITE_KEY;
 
-            $loader = new \Twig\Loader\FilesystemLoader('app/view');
-            $twig = new \Twig\Environment($loader);
-
-            $template = $twig->load('form-contact.html');
-
             $parameters = $required;
-
-            echo $template->render($parameters);
+            AppLoader::load('form-contact.html', $parameters);
 
         } catch (Exception $e) {
             Transaction::rollback();

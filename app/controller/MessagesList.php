@@ -15,6 +15,7 @@
 
 namespace app\controller;
 
+use app\core\AppLoader;
 use app\model\Chat;
 use app\model\Message;
 use app\model\User;
@@ -27,7 +28,7 @@ if (!defined('RN2020')) {
 
 class MessagesList
 {
-    static function index()
+    public static function index()
     {
 
         Transaction::open('database');
@@ -49,15 +50,9 @@ class MessagesList
 
         Transaction::close();
 
-        $loader = new \Twig\Loader\FilesystemLoader('app/view');
-        $twig = new \Twig\Environment($loader);
-
-        $template = $twig->load('messages.html');
-
         $parameters = array();
         $parameters['chat_list'] = $chat_list;
 
-        echo $template->render($parameters);
-
+        AppLoader::load('messages.html', $parameters);
     }
 }
