@@ -1,49 +1,51 @@
 {% if msg %}
-<span class="msg-success">{{ msg }}</span>
+<span class="">{{ msg }}</span>
 {% endif %}
 <section class="form-contact">
   <h1 class="text-center">Fale conosco</h1>
 
-  <form id="form-de-contato" action="index.php" method="POST">
+  <form id="form-de-contato" action="index.php?class=ContactForm&method=check" method="POST">
 
     <fieldset>
 
       <div>
-        <label for="name">
-          <span>Nome: </span><abbr>*</abbr>
-          <input type="text" id="name" name="name" value="{{ name }}">
-        </label>
-        <span>{{ erro_name }}</span><br>
+        <label for="name">Nome: <abbr>*</abbr></label>
+        <input type="text" id="name" name="name" value="{{ form.name }}">
+        {% if required.name %}
+        <span class="alert-required">{{ required.name }}</span><br />
+        {% endif %}
       </div>
 
       <div>
-        <label for="email">
-          <span>E-mail: </span><abbr>*</abbr>
-          <input type="email" id="email" name="email" value="{{ email }}">
-        </label>
-        <span>{{ erro_email }}</span><br>
+        <label for="email">E-mail: <abbr>*</abbr></label>
+        <input type="email" id="email" name="email" value="{{ form.email }}">
+        {% if required.email %}
+        <span class="alert-required">{{ required.email }}</span><br />
+        {% endif %}
       </div>
 
       <div>
-        <label for="phone">
-          <span>Fone / WhatsApp: </span>
-          <input type="tel" id="phone" name="phone" placeholder="DDD + Número" pattern="[0-9]{11}">
-        </label>
+        <label for="phone">Fone / WhatsApp:</label>
+        <input type="tel" id="phone" name="phone" placeholder="DDD + Número" pattern="[0-9]{11}" value="{{ form.phone }}">
+        {% if required.phone %}
+        <span class="alert-required">{{ required.phone }}</span><br />
+        {% endif %}
       </div>
 
       <div>
-        <label for="subject">
-          <span>Assunto: </span>
-          <input type="text" id="subject" name="subject">
-        </label>
+        <label for="subject">Assunto:</label>
+        <input type="text" id="subject" name="subject" value="{{ form.subject }}">
+        {% if required.subject %}
+        <span class="alert-required">{{ required.subject }}</span><br />
+        {% endif %}
       </div>
 
       <div>
-        <label for="message">
-          <span>Mensagem: </span><abbr>*</abbr>
-          <textarea id="message" name="message">{{ message }}</textarea>
-        </label>
-        <span>{{ erro_message }}</span><br>
+        <label for="message">Mensagem: <abbr>*</abbr></label>
+        <textarea id="message" name="message">{{ form.message }}</textarea>
+        {% if required.message %}
+        <span class="alert-required">{{ required.message }}</span><br />
+        {% endif %}
       </div>
 
     </fieldset>
@@ -52,7 +54,6 @@
       <small class="text-center">Campos marcados com <abbr title="asterisco">*</abbr> são obrigatórios.</small>
     </div>
     <div class="g-recaptcha" data-sitekey="{{ recaptcha }}"></div> <!-- Site Key reCAPTCHA Google -->
-    <span>{{ erro_recaptcha }}</span><br>
     <br>
     <button id="form-de-contato" type="submit">Enviar</button>
 

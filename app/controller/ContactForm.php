@@ -17,6 +17,7 @@ namespace app\controller;
 
 use app\core\AppLoader;
 use app\model\Chat;
+use app\model\Form;
 use app\model\Mail;
 use app\model\Message;
 use app\model\Supplier;
@@ -28,85 +29,91 @@ class ContactForm
 {
     public static function index()
     {
+        $required['msg'] = $_SESSION['msg'] ?? '';
+        unset($_SESSION['msg']);
 
+        require_once 'app/config/config.php';
+        $required['recaptcha'] = SITE_KEY;
+
+        if (isset($_SESSION['required'])) {
+            $required['form'] = $_SESSION['form'];
+            $required['required'] = $_SESSION['required'];
+            $required['msg'] = 'Erro ao enviar informações!';
+            unset($_SESSION['required'], $_SESSION['form']);
+        }
+
+        $parameters = $required;
+
+        AppLoader::load('form-contact.html', $parameters);
+    }
+
+    public static function check()
+    {
+        $form = new Form;
+        $form->validateForm($_POST);
+
+        if ($form->validate == false) {
+            $_SESSION['required'] = $form->msgRequired;
+            $_SESSION['form'] = $form->dataForm;
+            return ContactForm::index();
+        }
+
+        ContactForm::save();
+
+    }
+
+    public static function save()
+    {
         try {
+            echo 'Executando médoto save()';
+            $supplier = 1; // Criar regra de negócio para fornecedor
 
-            if (count($_POST) > 0) {
-                $validation = true;
-                $required = array();
-                $supplier = 1; // Criar regra de negócio para fornecedor
+            $user = new User;
+            $user->name = $_POST['name'];
+            $user->email = $_POST['email'];
 
-                $user = new User;
-                if (strlen($_POST['name']) > 0) {
-                    $user->name = $_POST['name'];
-                    $required['name'] = $_POST['name'];
-                } else {
-                    $validation = false;
-                    $required['erro_name'] = "O campo nome é obrigatório";
+            $message = new Message;
+            $message->message = $_POST['message'];
+
+            $validation = ReCaptcha::reCAPTCHA();
+
+            if ($validation) {
+                $user->phone = $_POST['phone'];
+                Transaction::open('database');
+                $user->id = $user->getIdUser($_POST['email']);
+
+                $user->save();
+
+                if ($user->id == 0) {
+                    $user->id = $user->getLastId();
                 }
 
-                if (strlen($_POST['email']) > 0) {
-                    $user->email = $_POST['email'];
-                    $required['email'] = $_POST['email'];
-                } else {
-                    $validation = false;
-                    $required['erro_email'] = "O campo e-mail é obrigatório";
-                }
+                $chat = new Chat;
+                $chat->id_user = $user->id;
+                $chat->id_supplier = $supplier;
+                $chat->subject = $_POST['subject'];
+                $chat->status = "Pendente"; // Enquanto não houver regra de negócio
+                $chat->save();
 
-                if (strlen($_POST['message']) > 0) {
-                    $message = new Message;
-                    $message->message = $_POST['message'];
-                    $required['message'] = $_POST['message'];
-                } else {
-                    $validation = false;
-                    $required['erro_message'] = "Mensagem obrigatória";
-                }
+                $chat->id = $chat->getLastId();
 
-                $validation = ReCaptcha::reCAPTCHA();
+                $message->chat = $chat;
+                $message->user = $user;
+                $message->date_send = date('Y-m-d');
+                $message->save();
 
-                if ($validation) {
-                    $user->phone = $_POST['phone'];
-                    Transaction::open('database');
-                    $user->id = $user->getIdUser($_POST['email']);
+                $supplier = Supplier::find($supplier);
+                $user2 = User::find($supplier->id_user);
 
-                    $user->save();
+                Transaction::close();
 
-                    if ($user->id == 0) {
-                        $user->id = $user->getLastId();
-                    }
+                $user_mail = $user2->email;
+                $user_name = $user2->name;
+                Mail::sendMail($user_mail, $user_name);
 
-                    $chat = new Chat;
-                    $chat->id_user = $user->id;
-                    $chat->id_supplier = $supplier;
-                    $chat->subject = $_POST['subject'];
-                    $chat->status = "Pendente"; // Enquanto não houver regra de negócio
-                    $chat->save();
-
-                    $chat->id = $chat->getLastId();
-
-                    $message->chat = $chat;
-                    $message->user = $user;
-                    $message->date_send = date('Y-m-d');
-                    $message->save();
-
-                    $supplier = Supplier::find($supplier);
-                    $user2 = User::find($supplier->id_user);
-
-                    Transaction::close();
-
-                    $user_mail = $user2->email;
-                    $user_name = $user2->name;
-                    Mail::sendMail($user_mail, $user_name);
-
-                    $required['msg'] = 'Mensagem enviada com sucesso!';
-                }
+                $_SESSION['msg'] = 'Mensagem enviada com sucesso!';
+                header('Location: /index.php?class=ContactForm');
             }
-
-            require_once 'app/config/config.php';
-            $required['recaptcha'] = SITE_KEY;
-
-            $parameters = $required;
-            AppLoader::load('form-contact.html', $parameters);
 
         } catch (Exception $e) {
             Transaction::rollback();
