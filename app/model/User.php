@@ -89,7 +89,10 @@ class User
         $result = $conn->query($sql);
         $data = $result->fetch(PDO::FETCH_OBJ);
 
-        if (!empty($data) && $data->password == $this->password) {
+        $password = $this->password;
+        $passwordDb = $data->password;
+
+        if (!empty($data) && password_verify($password, $passwordDb)) {
 
             $_SESSION['logged'] = true;
             $_SESSION['id-user'] = $data->id;
