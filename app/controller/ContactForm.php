@@ -65,7 +65,6 @@ class ContactForm
     public static function save()
     {
         try {
-            echo 'Executando médoto save()';
             $supplier = 1; // Criar regra de negócio para fornecedor
 
             $user = new User;
