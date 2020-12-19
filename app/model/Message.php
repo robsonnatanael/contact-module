@@ -1,20 +1,19 @@
 <?php
 
 /**
- * 2020 - RN Comunicação & Marketing
+ * AVISO DE LICENÇA
  *
- * * AVISO DE LICENÇA
- *
- * Este arquivo de origem está sujeito à Licença ...
+ * Este arquivo de origem está sujeito à Licença MIT
  * incluído neste pacote no arquivo LICENSE.txt.
  * Também está disponível na Internet neste URL:
  * https://opensource.org/licenses/MIT
  *
- * @author Robson Natanael <natanaelrobson@gmail.com>
- * @copyright 2020 - RN Comunicação & Marketing
- * @license MIT
+ * @copyright 2020 - Robson Natanael
+ * @license https://opensource.org/licenses/MIT MIT License
  *
  * @package Contact Module
+ * @author Robson Natanael <natanaelrobson@gmail.com>
+ *
  */
 
 namespace app\model;
@@ -64,17 +63,19 @@ class Message
                 " VALUES ('{$this->chat->id}', " .
                 " '{$this->user->id}', " .
                 " '{$this->chat->id_supplier}', " .
-                " '{$this->message}', " .
+                " :message, " .
                 " '{$this->date_send}')";
         } else {
             $sql = "UPDATE messages SET id_chat        = '{$this->chat->id}', " .
                 "id_user        = '{$this->user->id}', " .
                 "id_supplier    = '{$this->chat->id_supplier}', " .
-                "mesage         = '{$this->message}', " .
+                "mesage         = :message, " .
                 "date_send      = '{$this->date_send}', " .
                 " WHERE id      = '{$this->id}'";
         }
         $conn = Transaction::get();
-        return $conn->exec($sql);
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':message', $this->message);
+        return $stmt->execute();
     }
 }

@@ -1,8 +1,6 @@
 <?php
 
 /**
- * 2020 - RN Comunicação & Marketing
- *
  * AVISO DE LICENÇA
  *
  * Este arquivo de origem está sujeito à Licença MIT
@@ -10,11 +8,12 @@
  * Também está disponível na Internet neste URL:
  * https://opensource.org/licenses/MIT
  *
- * @author Robson Natanael <natanaelrobson@gmail.com>
- * @copyright 2020 - RN Comunicação & Marketing
+ * @copyright 2020 - Robson Natanael
  * @license https://opensource.org/licenses/MIT MIT License
  *
  * @package Contact Module
+ * @author Robson Natanael <natanaelrobson@gmail.com>
+ *
  */
 
 namespace app\model;
@@ -39,10 +38,12 @@ class User
 
     public function getIdUser($email)
     {
-        $sql = "SELECT id FROM users WHERE email = '$email'";
+        $sql = "SELECT id FROM users WHERE email = :email";
         $conn = Transaction::get();
-        $result = $conn->query($sql);
-        $data = $result->fetch(PDO::FETCH_OBJ);
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':email', $email);
+        $stmt->execute();
+        $data = $stmt->fetch(PDO::FETCH_OBJ);
         if (isset($data->id)) {
             return $data->id;
         }
@@ -60,17 +61,21 @@ class User
     {
         if (empty($this->data['id'])) {
             $sql = "INSERT INTO users (name, email, phone) " .
-                " VALUES ('{$this->name}', " .
-                "     '{$this->email}', " .
-                "     '{$this->phone}')";
+                " VALUES (:name, " .
+                "     :email, " .
+                "     :phone)";
         } else {
-            $sql = "UPDATE users SET name    = '{$this->name}', " .
-                "   email   = '{$this->email}', " .
-                "   phone   = '{$this->phone}' " .
+            $sql = "UPDATE users SET name    = :name, " .
+                "   email   = :email, " .
+                "   phone   = :phone " .
                 " WHERE id  = '{$this->id}'";
         }
         $conn = Transaction::get();
-        return $conn->exec($sql);
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':name', $this->name);
+        $stmt->bindValue(':email', $this->email);
+        $stmt->bindValue(':phone', $this->phone);
+        return $stmt->execute();
     }
 
     public function getLastId()
@@ -84,10 +89,12 @@ class User
 
     public function validateLogin()
     {
-        $sql = "SELECT * FROM users WHERE email = '$this->email'";
+        $sql = "SELECT * FROM users WHERE email = :email";
         $conn = Transaction::get();
-        $result = $conn->query($sql);
-        $data = $result->fetch(PDO::FETCH_OBJ);
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':email', $this->email);
+        $stmt->execute();
+        $data = $stmt->fetch(PDO::FETCH_OBJ);
 
         $password = $this->password;
         $passwordDb = $data->password;
