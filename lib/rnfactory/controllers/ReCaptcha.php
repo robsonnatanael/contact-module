@@ -1,6 +1,6 @@
 <?php
 
-namespace RNFactory\Controller;
+namespace rnfactory\controllers;
 
 final class ReCaptcha
 {

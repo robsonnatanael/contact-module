@@ -13,11 +13,11 @@
  * @author Robson Natanael <natanaelrobson@gmail.com>
  */
 
-namespace app\controller;
+namespace app\controllers;
 
 use app\core\AppLoader;
-use app\model\User;
-use RNFactory\Database\Transaction;
+use app\models\User;
+use rnfactory\database\Transaction;
 
 class Login
 {

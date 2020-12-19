@@ -13,9 +13,9 @@
  * @author Robson Natanael <natanaelrobson@gmail.com>
  */
 
-namespace app\model;
+namespace app\models;
 
-use RNFactory\Database\Transaction;
+use rnfactory\database\Transaction;
 use PDO;
 
 class User

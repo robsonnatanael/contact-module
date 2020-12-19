@@ -15,9 +15,9 @@
     },
 
     "autoload": {
-        "psr-4": {  
+        "psr-4": {
             "app\\": "app/",
-            "RNFactory\\": "Lib/RNFactory/"
+            "rnfactory\\": "lib/rnfactory/"
                 }
     }
 }

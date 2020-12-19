@@ -13,12 +13,12 @@
  * @author Robson Natanael <natanaelrobson@gmail.com>
  */
 
-namespace app\controller;
+namespace app\controllers;
 
-use app\model\Chat;
-use app\model\Message;
-use app\model\User;
-use RNFactory\Database\Transaction;
+use app\models\Chat;
+use app\models\Message;
+use app\models\User;
+use rnfactory\database\Transaction;
 use app\core\AppLoader;
 
 if (!defined('RN2020')) {

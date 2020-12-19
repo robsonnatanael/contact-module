@@ -37,20 +37,20 @@ class AppLoader
         try {
             if (!empty($url)) {
 
-                if (array_key_exists('class', $_GET) && file_exists("app/controller/{$_GET['class']}.php")) {
+                if (array_key_exists('class', $_GET) && file_exists("app/controllers/{$_GET['class']}.php")) {
 
                     $this->permission($_GET);
                     $controller = $this->urlController;
                     $method = $_GET['method'] ?? 'index';
 
-                    return call_user_func(array("app\\controller\\$controller", $method), $this->param);
+                    return call_user_func(array("app\\controllers\\$controller", $method), $this->param);
 
                 } else {
                     throw new Exception('Página não encontrada!');
                 }
 
             } else {
-                return call_user_func(array("app\\controller\\ContactForm", 'index'));
+                return call_user_func(array("app\\controllers\\ContactForm", 'index'));
             }
 
         } catch (Exception $e) {
@@ -91,7 +91,7 @@ class AppLoader
             $parameters['user'] = $_SESSION['name'];
         }
 
-        $loader = new \Twig\Loader\FilesystemLoader('app/view');
+        $loader = new \Twig\Loader\FilesystemLoader('app/views');
         $twig = new \Twig\Environment($loader, [
             'cache' => 'app/cache',
             'auto_reload' => true,

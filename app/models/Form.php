@@ -13,7 +13,7 @@
  * @author Robson Natanael <natanaelrobson@gmail.com>
  */
 
-namespace app\model;
+namespace app\models;
 
 class Form
 {

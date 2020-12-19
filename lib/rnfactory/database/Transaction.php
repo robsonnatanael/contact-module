@@ -1,8 +1,8 @@
 <?php
 
-namespace RNFactory\Database;
+namespace rnfactory\database;
 
-use RNFactory\Database\Connection;
+use rnfactory\database\Connection;
 
 final class Transaction
 {

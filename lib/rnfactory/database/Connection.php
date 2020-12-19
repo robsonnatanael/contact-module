@@ -1,6 +1,6 @@
 <?php
 
-namespace RNFactory\Database;
+namespace rnfactory\database;
 
 use PDO;
 use Exception;

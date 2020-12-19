@@ -13,7 +13,7 @@
  * @author Robson Natanael <natanaelrobson@gmail.com>
  */
 
-namespace app\controller;
+namespace app\controllers;
 
 use app\core\AppLoader;
 

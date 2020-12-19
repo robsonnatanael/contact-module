@@ -13,17 +13,17 @@
  * @author Robson Natanael <natanaelrobson@gmail.com>
  */
 
-namespace app\controller;
+namespace app\controllers;
 
 use app\core\AppLoader;
-use app\model\Chat;
-use app\model\Form;
-use app\model\Mail;
-use app\model\Message;
-use app\model\Supplier;
-use app\model\User;
-use RNFactory\Controller\ReCaptcha;
-use RNFactory\Database\Transaction;
+use app\models\Chat;
+use app\models\Form;
+use app\models\Mail;
+use app\models\Message;
+use app\models\Supplier;
+use app\models\User;
+use rnfactory\controllers\ReCaptcha;
+use rnfactory\database\Transaction;
 
 class ContactForm
 {

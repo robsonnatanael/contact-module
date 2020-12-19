@@ -13,14 +13,14 @@
  * @author Robson Natanael <natanaelrobson@gmail.com>
  */
 
-namespace app\controller;
+namespace app\controllers;
 
-use app\model\Chat;
-use app\model\Mail;
-use app\model\Message;
-use app\model\Supplier;
-use app\model\User;
-use RNFactory\Database\Transaction;
+use app\models\Chat;
+use app\models\Mail;
+use app\models\Message;
+use app\models\Supplier;
+use app\models\User;
+use rnfactory\database\Transaction;
 
 if (!defined('RN2020')) {
     header('Location: /');
