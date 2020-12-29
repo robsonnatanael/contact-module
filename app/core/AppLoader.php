@@ -50,7 +50,7 @@ class AppLoader
                 }
 
             } else {
-                return call_user_func(array("app\\controllers\\ContactForm", 'index'));
+                return call_user_func(array("app\\controllers\\Home", 'index'));
             }
 
         } catch (Exception $e) {
@@ -63,7 +63,7 @@ class AppLoader
     {
 
         $this->urlController = $url['class'];
-        $pagePublic = ['ContactForm', 'Login'];
+        $pagePublic = ['Home', 'ContactForm', 'Login'];
 
         if (in_array($this->urlController, $pagePublic)) {
             return $this->urlControlle = $url['class'];

@@ -16,6 +16,7 @@
 namespace app\models;
 
 use rnfactory\database\Transaction;
+use PDO;
 
 class Supplier
 {
@@ -38,5 +39,13 @@ class Supplier
         $conn = Transaction::get();
         $result = $conn->query($sql);
         return $result->fetchObject(__CLASS__);
+    }
+
+    public function all()
+    {
+        $sql = "SELECT * FROM suppliers";
+        $conn = Transaction::get();
+        $result = $conn->query($sql);
+        return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
     }
 }

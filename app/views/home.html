@@ -1,0 +1,17 @@
+<section class="home">
+  <h1>Painel de Fornecedores</h1>
+
+  {% if msg %}
+    <span class="">{{ msg }}</span>
+  {% else %}
+
+    {% for fornecedor in fornecedores %}
+      <h3>{{ fornecedor.name }}</h3>
+      <p>{{ fornecedor.description }}</p>
+      <a href="index.php?class=ContactForm&method=index&param={{ fornecedor.id }}">Contato</a>
+    {% endfor %}
+
+  {% endif %}
+
+
+</section>
