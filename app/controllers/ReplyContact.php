@@ -39,8 +39,7 @@ class ReplyContact
                 Transaction::open('database');
                 $chat = Chat::find($_POST['id-chat']);
                 $supplier = Supplier::find($chat->id_supplier);
-                $user = new User;
-                $user->id = $supplier->id_user;
+                $user = User::find($chat->id_supplier);;
 
                 $message = new Message;
                 $message->chat = $chat;
@@ -58,7 +57,7 @@ class ReplyContact
 
                 Mail::sendMail($user_mail, $user_name);
             }
-            header('Location: index.php?class=MessageView&method=view&param=' . $_POST['id-chat'] . '');
+            header('Location: index.php?class=Messages&method=view&param=' . $_POST['id-chat']);
         } catch (Exception $e) {
             Transaction::rollback();
             print $e->getMessage();
