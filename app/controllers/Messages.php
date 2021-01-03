@@ -6,7 +6,7 @@
  * Este arquivo de origem está sujeito à Licença MIT
  * incluído neste pacote no arquivo LICENSE
  *
- * @copyright 2020 - Robson Natanael
+ * @copyright 2020-2021 - Robson Natanael
  * @license https://opensource.org/licenses/MIT MIT License
  *
  * @package Contact Module
@@ -20,6 +20,8 @@ use app\models\Chat;
 use app\models\Message;
 use app\models\User;
 use rnfactory\database\Transaction;
+use app\models\Mail;
+use app\models\Supplier;
 
 if (!defined('RN2020')) {
     header('Location: /');
@@ -28,8 +30,7 @@ if (!defined('RN2020')) {
 
 class Messages
 {
-    public static function list()
-    {
+    function list() {
 
         Transaction::open('database');
         $chat = Chat::all('id_supplier = 1'); // Implementar regra de negócio para saber qual fornecedor está visualizando chat
@@ -83,5 +84,41 @@ class Messages
         $msg['chat'] = $chat_view;
 
         AppLoader::load('message-view.html', $msg);
+    }
+
+    public static function reply()
+    {
+
+        try {
+
+            if (strlen($_POST['message']) > 0) {
+
+                Transaction::open('database');
+                $chat = Chat::find($_POST['id-chat']);
+                $supplier = Supplier::find($chat->id_supplier);
+                $user = User::find($chat->id_supplier);
+
+                $message = new Message;
+                $message->chat = $chat;
+                $message->user = $user;
+                $message->message = $_POST['message'];
+                $message->date_send = date('Y-m-d');
+
+                $message->save();
+
+                $user = User::find($chat->id_user);
+                Transaction::close();
+
+                $user_name = $user->name;
+                $user_mail = $user->email;
+
+                Mail::sendMail($user_mail, $user_name);
+            }
+            header('Location: index.php?class=Messages&method=view&param=' . $_POST['id-chat']);
+        } catch (Exception $e) {
+            Transaction::rollback();
+            print $e->getMessage();
+        }
+
     }
 }
