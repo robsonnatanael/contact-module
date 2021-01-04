@@ -33,7 +33,7 @@ class Messages
     public static function list() {
 
         Transaction::open('database');
-        $chat = Chat::all('id_supplier = 1'); // Implementar regra de negócio para saber qual fornecedor está visualizando chat
+        $chat = Chat::all($_SESSION['id-user']);
 
         $chat_list = array();
 

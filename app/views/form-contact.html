@@ -8,6 +8,7 @@
 
     <fieldset>
 
+      <input type="hidden" id="supplier" name="supplier" value="{{ supplier }}">
       <div>
         <label for="name">Nome: <abbr>*</abbr></label>
         <input type="text" id="name" name="name" value="{{ form.name }}">
@@ -26,7 +27,8 @@
 
       <div>
         <label for="phone">Fone / WhatsApp:</label>
-        <input type="tel" id="phone" name="phone" placeholder="DDD + Número" pattern="[0-9]{11}" value="{{ form.phone }}">
+        <input type="tel" id="phone" name="phone" placeholder="DDD + Número" pattern="[0-9]{11}"
+          value="{{ form.phone }}">
         {% if required.phone %}
         <span class="alert-required">{{ required.phone }}</span><br />
         {% endif %}

@@ -6,7 +6,7 @@
  * Este arquivo de origem está sujeito à Licença MIT
  * incluído neste pacote no arquivo LICENSE
  *
- * @copyright 2020 - Robson Natanael
+ * @copyright 2020-2021 - Robson Natanael
  * @license https://opensource.org/licenses/MIT MIT License
  *
  * @package Contact Module
@@ -31,6 +31,12 @@ class ContactForm
     {
         $required['msg'] = $_SESSION['msg'] ?? '';
         unset($_SESSION['msg']);
+
+        if (empty($_GET['param'])) {
+            header('Location: /index.php');
+        }
+
+        $required['supplier'] = $_GET['param'];
 
         require_once 'app/config/config.php';
         $required['recaptcha'] = SITE_KEY;
@@ -65,7 +71,7 @@ class ContactForm
     public static function save()
     {
         try {
-            $supplier = 1; // Criar regra de negócio para fornecedor
+            $supplier = $_POST['supplier'];
 
             $user = new User;
             $user->name = $_POST['name'];
@@ -111,7 +117,7 @@ class ContactForm
                 Mail::sendMail($user_mail, $user_name);
 
                 $_SESSION['msg'] = 'Mensagem enviada com sucesso!';
-                header('Location: /index.php?class=ContactForm');
+                header('Location: /index.php');
             }
 
         } catch (Exception $e) {
