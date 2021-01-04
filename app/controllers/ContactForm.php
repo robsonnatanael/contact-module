@@ -61,7 +61,7 @@ class ContactForm
         if ($form->validate == false) {
             $_SESSION['required'] = $form->msgRequired;
             $_SESSION['form'] = $form->dataForm;
-            return ContactForm::index();
+            header('Location: index.php?class=ContactForm&method=index&param='.$_POST['supplier']);
         }
 
         ContactForm::save();
