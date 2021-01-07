@@ -41,7 +41,7 @@ class Supplier
         return $result->fetchObject(__CLASS__);
     }
 
-    public function all()
+    public static function all()
     {
         $sql = "SELECT * FROM suppliers";
         $conn = Transaction::get();
