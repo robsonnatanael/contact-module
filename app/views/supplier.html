@@ -1,0 +1,25 @@
+<section>
+  <h1>Fornecedores</h1>
+  <table>
+    <tr>
+      <th>Nome</th>
+      <th>Plano</th>
+      <th>E-mail</th>
+      <th>Telefone</th>
+      <th>Visualizar</th>
+      <th>Editar</th>
+      <th>Excluir</th>
+    </tr>
+    {% for supplier in suppliers %}
+    <tr>
+      <td>{{ supplier.name }}</td>
+      <td>{{ supplier.plan }}</td>
+      <td>{{ supplier.email }}</td>
+      <td>{{ supplier.phone }}</td>
+      <td><a href="#">Visualizar</a></td>
+      <td><a href="#">Editar</a></td>
+      <td><a href="#">Excluir</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+</section>
