@@ -48,7 +48,7 @@ class User
 
     public static function find($id)
     {
-        $sql = "SELECT * FROM users WHERE id = '$id' ";
+        $sql = "SELECT id, name, email, phone FROM users WHERE id = '$id' ";
         $conn = Transaction::get();
         $result = $conn->query($sql);
         return $result->fetchObject(__CLASS__);
