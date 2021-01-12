@@ -33,7 +33,7 @@ class Messages
     public static function list() {
 
         Transaction::open('database');
-        $chat = Chat::all($_SESSION['id-user']);
+        $chat = Chat::all('id_supplier='.$_SESSION['id-user']);
 
         $chat_list = array();
 
