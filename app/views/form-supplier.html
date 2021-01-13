@@ -2,28 +2,40 @@
   <h1>Formulário de Cadastro de Fornecedores</h1>
   <form action="index.php?class=SupplierController&method=register" method="POST">
     <div>
-      <input type="radio" id="free" name="plan" value="Free">
+      <input type="radio" id="free" name="plan" value="0">
       <label for="free">Free</label>
-      <input type="radio" id="premium" name="plan" value="Premium">
+      <input type="radio" id="premium" name="plan" value="1">
       <label for="premium">Premium</label>
     </div>
     <br>
     <div>
       <label for="name">Nome:</label>
-      <input type="text" name="name" id="name">
+      <input type="text" name="name" id="name" value="{{ value.name }}">
+      {% if required.name %}
+      <span class="alert-required">{{ required.name }}</span><br />
+      {% endif %}
     </div>
     <div>
       <label for="email">E-mail:</label>
-      <input type="email" name="email" id="email">
+      <input type="email" name="email" id="email" value="{{ value.email }}">
+      {% if required.email %}
+      <span class="alert-required">{{ required.email }}</span><br />
+      {% endif %}
     </div>
     <div>
       <label for="phone">Fone / WhatsApp:</label>
-      <input type="text" name="phone" id="phone">
+      <input type="text" name="phone" id="phone" value="{{ value.phone }}">
+      {% if required.phone %}
+      <span class="alert-required">{{ required.phone }}</span><br />
+      {% endif %}
     </div>
     <!-- Adiconar segmento posteriormente -->
     <div>
       <label for="description">Descrição:</label><br>
-      <textarea name="description" id="description" cols="30" rows="10"></textarea>
+      <textarea name="description" id="description" cols="30" rows="10">{{ value.description }}</textarea>
+      {% if required.description %}
+      <span class="alert-required">{{ required.description }}</span><br />
+      {% endif %}
     </div>
     <input type="submit" value="Cadastrar">
 

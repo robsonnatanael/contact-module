@@ -48,4 +48,15 @@ class Supplier
         $result = $conn->query($sql);
         return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
     }
+
+    public function save()
+    {
+        $sql = "INSERT INTO suppliers (id_user, plan, description) VALUES (:id_user, :plan, :description)";
+        $conn = Transaction::get();
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':id_user', $this->id_user);
+        $stmt->bindValue(':plan', $this->plan);
+        $stmt->bindValue(':description', $this->description);
+        return $stmt->execute();
+    }
 }
