@@ -103,4 +103,23 @@ class SupplierController
 
     }
 
+    public static function view()
+    {
+        Transaction::open('database');
+        $supplier = Supplier::find($_GET['param']);
+        $supplier->user = User::find($supplier->id_user);
+
+        Transaction::close();
+
+        $param['id'] = $supplier->id;
+        $param['plan'] = $supplier->plan;
+        $param['description'] = $supplier->description;
+        $param['name'] = $supplier->user->name;
+        $param['email'] = $supplier->user->email;
+        $param['phone'] = $supplier->user->phone;
+
+        $parameters['supplier'] = $param;
+
+        AppLoader::load('supplier-view.html', $parameters);
+    }
 }
