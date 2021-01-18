@@ -103,10 +103,18 @@ class SupplierController
 
     }
 
-    public static function view()
+    public static function supplierView()
+    {
+        $supplier = $_GET['param'];
+        $parameters = self::view($supplier);
+
+        AppLoader::load('supplier-view.html', $parameters);
+    }
+
+    public static function view($supplier)
     {
         Transaction::open('database');
-        $supplier = Supplier::find($_GET['param']);
+        $supplier = Supplier::find($supplier);
         $supplier->user = User::find($supplier->id_user);
 
         Transaction::close();
@@ -120,6 +128,6 @@ class SupplierController
 
         $parameters['supplier'] = $param;
 
-        AppLoader::load('supplier-view.html', $parameters);
+        return $parameters;
     }
 }
