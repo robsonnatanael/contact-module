@@ -67,7 +67,7 @@ class SupplierController
 
         if ($form->validate == false) {
 
-            $parameters['value'] = $form->dataForm;
+            $parameters['supplier'] = $form->dataForm;
             $parameters['required'] = $form->msgRequired;
 
             return AppLoader::load('form-supplier.html', $parameters);
@@ -88,6 +88,9 @@ class SupplierController
             }
 
             $supplier = new Supplier;
+            if ($_POST['id']) {
+                $supplier->id = $_POST['id'];
+            }
             $supplier->id_user = $user->id;
             $supplier->plan = $_POST['plan'];
             $supplier->description = $_POST['description'];
@@ -100,15 +103,27 @@ class SupplierController
         } catch (Exception $e) {
 
         }
-
     }
 
     public static function supplierView()
     {
         $supplier = $_GET['param'];
-        $parameters = self::view($supplier);
+        $param = self::view($supplier);
+
+        $parameters['supplier'] = $param;
 
         AppLoader::load('supplier-view.html', $parameters);
+    }
+
+    public static function edit()
+    {
+        $supplier = $_GET['param'];
+        $param = self::view($supplier);
+        $param['edit'] = true;
+
+        $parameters['supplier'] = $param;
+
+        AppLoader::load('form-supplier.html', $parameters);
     }
 
     public static function view($supplier)
@@ -126,8 +141,6 @@ class SupplierController
         $param['email'] = $supplier->user->email;
         $param['phone'] = $supplier->user->phone;
 
-        $parameters['supplier'] = $param;
-
-        return $parameters;
+        return $param;
     }
 }

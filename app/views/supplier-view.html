@@ -4,5 +4,6 @@
   <p>{{ supplier.description }}</p>
   <p>{{ supplier.phone }}</p>
   <p>{{ supplier.email }}</p>
-  <p><a href="#">Editar {{ supplier.id }}</a></p>
+  <p><a href="index.php?class=SupplierController&method=edit&param={{ supplier.id }}">Editar</a></p>
+  <p><a href="index.php?class=SupplierController&method=index">Voltar</a></p>
 </section>

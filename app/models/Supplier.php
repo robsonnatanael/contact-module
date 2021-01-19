@@ -51,7 +51,15 @@ class Supplier
 
     public function save()
     {
-        $sql = "INSERT INTO suppliers (id_user, plan, description) VALUES (:id_user, :plan, :description)";
+        if (empty($this->data['id'])) {
+            $sql = "INSERT INTO suppliers (id_user, plan, description) VALUES (:id_user, :plan, :description)";
+        } else {
+            $sql = "UPDATE suppliers SET id_user    = :id_user, " .
+                    "   plan   = :plan, " .
+                    "   description   = :description " .
+                    " WHERE id  = '{$this->id}'";
+        }
+
         $conn = Transaction::get();
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(':id_user', $this->id_user);
