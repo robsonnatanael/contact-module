@@ -2,9 +2,9 @@
   <h1>Formulário de Cadastro de Fornecedores</h1>
   <form action="index.php?class=SupplierController&method=register" method="POST">
     <div>
-      <input type="radio" id="free" name="plan" value="0" {% if supplier.plan == 0 %} checked {% endif %}>
+      <input type="radio" id="free" name="plan" value="0" {% if supplier.plan==0 %} checked {% endif %}>
       <label for="free">Free</label>
-      <input type="radio" id="premium" name="plan" value="1" {% if supplier.plan == 1 %} checked {% endif %}>
+      <input type="radio" id="premium" name="plan" value="1" {% if supplier.plan==1 %} checked {% endif %}>
       <label for="premium">Premium</label>
     </div>
     <br>
@@ -37,7 +37,11 @@
       <span class="alert-required">{{ required.description }}</span><br />
       {% endif %}
     </div>
-    <input type="hidden" id="id" name="id" value="{{ supplier.id }}">
+    <div>
+      {% if supplier.edit %}
+      <input type="hidden" id="id" name="id" value="{{ supplier.id }}">
+      {% endif %}
+    </div>
     <input type="submit" value="{% if supplier.edit %} Atualizar {% else %} Cadastrar {% endif %}">
   </form>
 </section>

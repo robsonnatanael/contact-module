@@ -79,7 +79,6 @@ class SupplierController
             $user->id = $user->getIdUser($_POST['email']);
 
             if (!$user->id) {
-                echo 'Usuário não cadastrado!';
                 $user->name = $_POST['name'];
                 $user->email = $_POST['email'];
                 $user->phone = $_POST['phone'];
@@ -88,7 +87,7 @@ class SupplierController
             }
 
             $supplier = new Supplier;
-            if ($_POST['id']) {
+            if (isset($_POST['id'])) {
                 $supplier->id = $_POST['id'];
             }
             $supplier->id_user = $user->id;
