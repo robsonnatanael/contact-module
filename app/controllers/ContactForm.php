@@ -38,7 +38,7 @@ class ContactForm
 
         $required['supplier'] = $_GET['param'];
 
-        require_once 'app/config/config.php';
+        require_once '../app/config/config.php';
         $required['recaptcha'] = SITE_KEY;
 
         if (isset($_SESSION['required'])) {

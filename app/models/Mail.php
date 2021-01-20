@@ -13,8 +13,8 @@ class Mail
     public static function sendMail($email, $name)
     {
         // Load Composer's autoloader
-        require_once 'vendor/autoload.php';
-        require_once 'app/config/config.php';
+        require_once '../vendor/autoload.php';
+        require_once '../app/config/config.php';
 
         // Instantiation and passing `true` enables exceptions
         $mail = new PHPMailer(true);

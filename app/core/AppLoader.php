@@ -37,7 +37,7 @@ class AppLoader
         try {
             if (!empty($url)) {
 
-                if (array_key_exists('class', $_GET) && file_exists("app/controllers/{$_GET['class']}.php")) {
+                if (array_key_exists('class', $_GET) && file_exists("../app/controllers/{$_GET['class']}.php")) {
 
                     $this->permission($_GET);
                     $controller = $this->urlController;
@@ -91,9 +91,9 @@ class AppLoader
             $parameters['user'] = $_SESSION['name'];
         }
 
-        $loader = new \Twig\Loader\FilesystemLoader('app/views');
+        $loader = new \Twig\Loader\FilesystemLoader('../app/views');
         $twig = new \Twig\Environment($loader, [
-            'cache' => 'app/cache',
+            'cache' => '../app/cache',
             'auto_reload' => true,
         ]);
 

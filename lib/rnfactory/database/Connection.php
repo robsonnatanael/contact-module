@@ -13,8 +13,8 @@ final class Connection
 
     public static function open($name)
     {
-        if (file_exists("app/database/{$name}.ini")) {
-            $db = parse_ini_file("app/database/{$name}.ini");
+        if (file_exists("../app/database/{$name}.ini")) {
+            $db = parse_ini_file("../app/database/{$name}.ini");
         } else {
             throw new Exception("Arquivo '$name' não encontrado");
         }

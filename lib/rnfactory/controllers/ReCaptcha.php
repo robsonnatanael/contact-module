@@ -6,7 +6,7 @@ final class ReCaptcha
 {
     public static function reCAPTCHA()
     {
-        require_once 'app/config/config.php';
+        require_once '../app/config/config.php';
 
         $secretKey = SECRET_KEY;
         $responseKey = $_POST['g-recaptcha-response'];

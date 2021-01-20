@@ -6,7 +6,7 @@
  * Este arquivo de origem está sujeito à Licença MIT
  * incluído neste pacote no arquivo LICENSE
  *
- * @copyright 2020 - Robson Natanael
+ * @copyright 2020-2021 - Robson Natanael
  * @license https://opensource.org/licenses/MIT MIT License
  *
  * @package Contact Module
@@ -16,11 +16,11 @@
 session_start();
 define('RN2020', true);
 
-require_once 'vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
 use app\core\AppLoader;
 
-$structure = file_get_contents('app/template/structure.html');
+$structure = file_get_contents('../app/template/structure.html');
 
 ob_start();
 
