@@ -6,7 +6,7 @@
  * Este arquivo de origem está sujeito à Licença MIT
  * incluído neste pacote no arquivo LICENSE
  *
- * @copyright 2020 - Robson Natanael
+ * @copyright 2020-2021 - Robson Natanael
  * @license https://opensource.org/licenses/MIT MIT License
  *
  * @package Contact Module
@@ -66,5 +66,13 @@ class Supplier
         $stmt->bindValue(':plan', $this->plan);
         $stmt->bindValue(':description', $this->description);
         return $stmt->execute();
+    }
+
+    public static function delete($id)
+    {
+        $sql = "DELETE FROM suppliers WHERE id = '$id'";
+        $conn = Transaction::get();
+        $result = $conn->exec($sql);
+        return $result;
     }
 }

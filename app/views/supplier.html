@@ -23,7 +23,7 @@
       <td>{{ supplier.phone }}</td>
       <td><a href="index.php?class=SupplierController&method=supplierView&param={{ supplier.id }}">Visualizar</a></td>
       <td><a href="index.php?class=SupplierController&method=edit&param={{ supplier.id }}">Editar</a></td>
-      <td><a href="#">Excluir</a></td>
+      <td><a href="index.php?class=SupplierController&method=delete&param={{ supplier.id }}">Excluir</a></td>
     </tr>
     {% endfor %}
   </table>

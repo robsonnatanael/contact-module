@@ -142,4 +142,17 @@ class SupplierController
 
         return $param;
     }
+
+    public static function delete()
+    {
+        Transaction::open('database');
+        $result = Supplier::delete($_GET['param']);
+        Transaction::close();
+
+        if ($result) {
+            echo 'Fornecedor excluido com sucesso!';
+        } else {
+            echo 'Erro ao excluir fornecedor!';
+        }
+    }
 }
