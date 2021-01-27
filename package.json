@@ -1,0 +1,23 @@
+{
+  "name": "contact-module",
+  "version": "1.0.0",
+  "description": "Módulo tipo classificado que permite o administrador cadastrar fornecedores de segmentos variados, para que os usuários possam entrar em contato no estilo de um help desk.",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robsonnatanael/contact-module.git"
+  },
+  "author": "Robson Natanael",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/robsonnatanael/contact-module/issues"
+  },
+  "homepage": "https://github.com/robsonnatanael/contact-module#readme",
+  "devDependencies": {
+    "webpack": "^5.18.0",
+    "webpack-cli": "^4.4.0"
+  }
+}
